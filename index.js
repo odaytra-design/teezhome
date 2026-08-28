@@ -1029,66 +1029,123 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (request.method === "GET" && url.pathname === "/") {
-      return htmlResponse(`<!doctype html><html lang="ar" dir="rtl"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Syria Commerce | الرئيسية</title>
+      return htmlResponse(`<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Syria Commerce</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f8fafc;color:#172033;font-family:Arial,sans-serif}
-a{text-decoration:none}.container{max-width:1180px;margin:auto;padding:0 18px}
-.header{background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:20}
-.nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-.logo{font-size:24px;font-weight:800;color:#111827}.links{display:flex;gap:6px}.links a{color:#475467;padding:10px 12px;border-radius:10px}.links a:hover{background:#f2f4f7}
-.actions{display:flex;gap:8px}.btn{display:inline-block;padding:11px 17px;border-radius:11px;background:#111827;color:#fff;font-weight:700}.btn.alt{background:#eef2f6;color:#172033}
-.hero{padding:68px 0 52px;background:linear-gradient(180deg,#fff,#f8fafc)}
-.heroGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:42px;align-items:center}
-.kicker{display:inline-block;background:#eef2ff;color:#3730a3;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:700}
-h1{font-size:48px;line-height:1.16;letter-spacing:-1px;margin:18px 0 14px}.hero p{font-size:18px;line-height:1.8;color:#667085;max-width:650px;margin:0 0 24px}
-.heroBtns{display:flex;gap:10px;flex-wrap:wrap}.visual{background:#111827;color:#fff;border-radius:24px;padding:28px;min-height:300px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 20px 50px #00000015}
-.visualTitle{font-size:13px;color:#cbd5e1}.visualName{font-size:46px;font-weight:800;line-height:1.05;margin-top:8px}.visualBottom{color:#cbd5e1;line-height:1.8}
-.section{padding:42px 0}.head{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px;gap:15px}.head h2{margin:0;font-size:28px}.muted{color:#667085}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:18px}.pic{height:175px;border-radius:14px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:50px}.card h3{margin:14px 0 7px}.price{font-size:20px;font-weight:800;margin-top:12px}
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:22px}.icon{font-size:28px}.feature h3{margin:12px 0 7px}.feature p{margin:0;color:#667085;line-height:1.7}
-.cta{background:#eef2ff;border-radius:24px;padding:30px;text-align:center;margin:10px 0 55px}.cta h2{margin:0 0 8px}.footer{background:#fff;border-top:1px solid #e5e7eb;padding:24px 0;color:#667085}
-@media(max-width:800px){.links{display:none}.heroGrid{grid-template-columns:1fr}h1{font-size:38px}.cards,.features{grid-template-columns:1fr}.visual{min-height:240px}}
-</style></head><body>
-<header class="header"><div class="container nav">
-<a class="logo" href="/">Syria Commerce</a>
-<nav class="links"><a href="/">الرئيسية</a><a href="/products">المنتجات</a><a href="/login">تسجيل الدخول</a></nav>
-<div class="actions"><a class="btn alt" href="/login">حسابي</a><a class="btn" href="/products">تسوّق الآن</a></div>
-</div></header>
+:root{--ink:#111827;--muted:#667085;--line:#e7e9ee;--bg:#f7f8fa;--card:#fff;--accent:#111827;--soft:#f0f2f5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,"Tahoma",sans-serif}
+a{text-decoration:none;color:inherit}.wrap{max-width:1200px;margin:auto;padding:0 20px}
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.nav{height:72px;display:flex;align-items:center;gap:26px}.logo{font-size:23px;font-weight:900;white-space:nowrap}
+.navlinks{display:flex;gap:4px;align-items:center;flex:1}.navlinks a{padding:10px 13px;color:#475467;border-radius:10px}.navlinks a:hover{background:var(--soft)}
+.navright{display:flex;align-items:center;gap:9px}.btn{border:0;border-radius:11px;padding:11px 17px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}.dark{background:var(--accent);color:#fff}.light{background:var(--soft);color:var(--ink)}
+.hero{padding:58px 0 34px;background:#fff}.heroGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center}
+.badge{display:inline-flex;background:#f0f2f5;border:1px solid #e5e7eb;padding:7px 11px;border-radius:999px;font-size:13px;font-weight:800}
+h1{font-size:50px;line-height:1.12;letter-spacing:-1.4px;margin:18px 0 15px}.lead{font-size:18px;line-height:1.85;color:var(--muted);max-width:650px;margin:0 0 25px}
+.heroBtns{display:flex;gap:10px;flex-wrap:wrap}.visual{background:#111827;border-radius:28px;padding:20px;min-height:350px;box-shadow:0 20px 50px #00000014}
+.mock{height:100%;min-height:310px;background:#fff;border-radius:19px;padding:17px;color:var(--ink)}.mockTop{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:14px}
+.mockTitle{font-weight:900}.search{background:var(--bg);border-radius:9px;padding:9px 12px;color:#98a2b3;font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:15px 0}.stat{background:var(--bg);border-radius:12px;padding:13px}.stat b{font-size:20px;display:block;margin-top:5px}.stat span{font-size:11px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.mini{border:1px solid var(--line);border-radius:12px;padding:9px}.pic{height:80px;background:var(--soft);border-radius:9px;margin-bottom:9px}.mini b{font-size:12px}.mini small{display:block;color:var(--muted);margin-top:5px}
+.section{padding:38px 0}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:17px}.head h2{margin:0;font-size:28px}.head p{margin:6px 0 0;color:var(--muted)}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.product{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:12px;overflow:hidden}.product .image{height:190px;background:var(--soft);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:45px}.product h3{font-size:16px;margin:13px 2px 5px}.product .desc{color:var(--muted);font-size:13px;margin:0 2px 11px}.price{font-weight:900;font-size:19px;margin:0 2px 12px}.product .btn{width:100%}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.feature{background:#fff;border:1px solid var(--line);border-radius:17px;padding:22px}.feature .ico{font-size:26px}.feature h3{margin:12px 0 7px}.feature p{margin:0;color:var(--muted);line-height:1.75}
+.marketer{margin:12px 0 48px;background:#111827;color:#fff;border-radius:24px;padding:34px}.marketerGrid{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}.marketer h2{margin:0 0 8px;font-size:29px}.marketer p{margin:0;color:#cbd5e1;line-height:1.7}.marketer .light{background:#fff}
+.footer{background:#fff;border-top:1px solid var(--line);padding:25px 0;color:var(--muted)}
+@media(max-width:900px){.heroGrid{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,1fr)}.navlinks{display:none}}
+@media(max-width:560px){h1{font-size:37px}.products,.features{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.nav{gap:8px}.navright .light{display:none}.marketerGrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap nav">
+    <a class="logo" href="/">Syria Commerce</a>
+    <nav class="navlinks">
+      <a href="/">الرئيسية</a>
+      <a href="/products">المنتجات</a>
+      <a href="/cart">السلة</a>
+      <a href="/marketer">المسوّق</a>
+    </nav>
+    <div class="navright">
+      <a class="btn light" href="/login">دخول</a>
+      <a class="btn dark" href="/products">تسوّق الآن</a>
+    </div>
+  </div>
+</header>
 
-<section class="hero"><div class="container heroGrid">
-<div><span class="kicker">منصة التجارة الإلكترونية</span>
-<h1>كل ما تحتاجه للتجارة،<br>في مكان واحد.</h1>
-<p>تصفح المنتجات، اختر ما يناسبك، واطلب بسهولة. ومع نظام المسوقين، تقدر تبدأ التسويق وتحصل على عمولتك.</p>
-<div class="heroBtns"><a class="btn" href="/products">تصفح المنتجات</a><a class="btn alt" href="/register">انضم كمسوّق</a></div>
+<main>
+<section class="hero">
+  <div class="wrap heroGrid">
+    <div>
+      <span class="badge">منصة التجارة في مكان واحد</span>
+      <h1>تسوّق بسهولة.<br>وسوّق بذكاء.</h1>
+      <p class="lead">Syria Commerce تجمع المنتجات والعملاء والمسوقين في تجربة واحدة بسيطة. اختر المنتج، اطلبه، أو ابدأ بتسويقه وتحقيق دخل منه.</p>
+      <div class="heroBtns">
+        <a class="btn dark" href="/products">استعرض المنتجات</a>
+        <a class="btn light" href="/register">انضم كمسوّق</a>
+      </div>
+    </div>
+    <div class="visual">
+      <div class="mock">
+        <div class="mockTop"><div class="mockTitle">Syria Commerce</div><div class="search">ابحث عن منتج...</div></div>
+        <div class="stats">
+          <div class="stat"><span>منتجات</span><b>متنوعة</b></div>
+          <div class="stat"><span>طلبات</span><b>بسهولة</b></div>
+          <div class="stat"><span>مسوقون</span><b>فرص</b></div>
+        </div>
+        <div class="cards">
+          <div class="mini"><div class="pic"></div><b>منتج مميز</b><small>عرض المنتج</small></div>
+          <div class="mini"><div class="pic"></div><b>الأكثر طلباً</b><small>عرض المنتج</small></div>
+          <div class="mini"><div class="pic"></div><b>عرض جديد</b><small>عرض المنتج</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+<div class="wrap">
+  <div class="head"><div><h2>منتجات مختارة</h2><p>تصفح المنتجات وابدأ طلبك</p></div><a class="btn light" href="/products">كل المنتجات</a></div>
+  <div class="products">
+    <article class="product"><div class="image">📦</div><h3>منتج مميز</h3><p class="desc">منتج متوفر عبر المنصة</p><div class="price">—</div><a class="btn dark" href="/products">عرض المنتج</a></article>
+    <article class="product"><div class="image">🛍️</div><h3>منتجات متنوعة</h3><p class="desc">خيارات متعددة للعملاء</p><div class="price">—</div><a class="btn dark" href="/products">استكشف</a></article>
+    <article class="product"><div class="image">⭐</div><h3>الأكثر طلباً</h3><p class="desc">اختيارات تستحق المشاهدة</p><div class="price">—</div><a class="btn dark" href="/products">استعرض</a></article>
+    <article class="product"><div class="image">🔥</div><h3>عروض جديدة</h3><p class="desc">اكتشف آخر المنتجات</p><div class="price">—</div><a class="btn dark" href="/products">شاهد الآن</a></article>
+  </div>
 </div>
-<div class="visual"><div><div class="visualTitle">مرحباً بك في</div><div class="visualName">Syria<br>Commerce</div></div>
-<div class="visualBottom">منتجات • طلبات • مسوقون<br>تجربة بسيطة وواضحة من البداية.</div></div>
-</div></section>
+</section>
 
-<section class="section"><div class="container">
-<div class="head"><div><h2>منتجات مميزة</h2><div class="muted">اكتشف المنتجات المتوفرة</div></div><a class="btn alt" href="/products">عرض المنتجات</a></div>
-<div class="cards">
-<div class="card"><div class="pic">📦</div><h3>منتجات متنوعة</h3><div class="muted">خيارات متعددة بانتظارك</div></div>
-<div class="card"><div class="pic">🛍️</div><h3>عروض مميزة</h3><div class="muted">تابع المنتجات والعروض الجديدة</div></div>
-<div class="card"><div class="pic">⭐</div><h3>اختياراتنا</h3><div class="muted">منتجات مختارة بعناية</div></div>
-</div></div></section>
+<section class="section">
+<div class="wrap">
+  <div class="head"><div><h2>كل شيء أبسط</h2><p>منصة واضحة للعميل والمسوق</p></div></div>
+  <div class="features">
+    <div class="feature"><div class="ico">🛒</div><h3>تسوق بسهولة</h3><p>تصفح المنتجات، أضف ما تريد إلى السلة وأكمل طلبك بخطوات واضحة.</p></div>
+    <div class="feature"><div class="ico">⚡</div><h3>تجربة سريعة</h3><p>واجهة مرتبة تساعدك على الوصول للمنتج والطلب بدون تعقيد.</p></div>
+    <div class="feature"><div class="ico">🤝</div><h3>فرصة للمسوقين</h3><p>اختر المنتجات المناسبة وابدأ بتسويقها لعملائك من خلال المنصة.</p></div>
+  </div>
+</div>
+</section>
 
-<section class="section"><div class="container">
-<div class="head"><div><h2>كيف تعمل المنصة؟</h2><div class="muted">ثلاث خطوات بسيطة</div></div></div>
-<div class="features">
-<div class="feature"><div class="icon">🔎</div><h3>1. اختر المنتج</h3><p>تصفح المنتجات واختر المنتج المناسب لك.</p></div>
-<div class="feature"><div class="icon">🛒</div><h3>2. اطلب بسهولة</h3><p>أكمل طلبك من خلال خطوات واضحة وسريعة.</p></div>
-<div class="feature"><div class="icon">🤝</div><h3>3. كن مسوّقاً</h3><p>شارك المنتجات وساهم في الوصول للعملاء مقابل عمولة.</p></div>
-</div></div></section>
+<section class="wrap">
+  <div class="marketer">
+    <div class="marketerGrid">
+      <div><h2>حابب تبدأ كمُسوّق؟</h2><p>اختر منتجاتك، شاركها مع عملائك، وتابع طلباتك وعمولاتك من حسابك.</p></div>
+      <a class="btn light" href="/register">ابدأ الآن</a>
+    </div>
+  </div>
+</section>
+</main>
 
-<div class="container"><div class="cta"><h2>جاهز تبدأ؟</h2><div class="muted" style="margin-bottom:18px">ابدأ بتصفح المنتجات أو انضم إلى شبكة المسوقين.</div>
-<div class="heroBtns" style="justify-content:center"><a class="btn" href="/products">ابدأ التسوق</a><a class="btn alt" href="/register">انضم كمسوّق</a></div></div></div>
-<footer class="footer"><div class="container">© Syria Commerce — جميع الحقوق محفوظة</div></footer>
-</body></html>`,"Syria Commerce | الرئيسية");
+<footer class="footer"><div class="wrap">© Syria Commerce — جميع الحقوق محفوظة</div></footer>
+</body>
+</html>`,"Syria Commerce | الرئيسية");
     }
-
+    
+    
     if (request.method === "GET" && url.pathname === "/products") return productsPage(env);
     if (request.method === "GET" && url.pathname === "/orders") return ordersPage(env);
     if (request.method === "GET" && url.pathname === "/commissions") return commissionsPage(env);
