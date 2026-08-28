@@ -1,0 +1,1 @@
+V27 adds a live admin screen at /admin-live and D1-compatible read APIs for orders, products and marketers. It uses the existing schema from V22 (marketers/products/orders), avoiding the incompatible users/commissions tables from V26. Node syntax check passed.
