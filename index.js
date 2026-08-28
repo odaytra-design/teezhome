@@ -1036,8 +1036,8 @@ export default {
 <title>Syria Commerce | منصة المسوّقين</title>
 <style>
 :root{
-  --ink:#17110d;--cream:#fff8ed;--paper:#fffdf8;--yellow:#ffe600;
-  --orange:#ff6a00;--coral:#ff3d35;--red:#e92820;--purple:#5b164f;
+  --ink:#17110d;--cream:#fff7e8;--paper:#fffdf8;--yellow:#ffd400;
+  --orange:#ff4d00;--coral:#ff4d00;--red:#d92d20;--purple:#17110d;
   --line:#ead8c5;--muted:#735f52;--green:#087a59
 }
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -1119,7 +1119,7 @@ a{text-decoration:none;color:inherit}.wrap{max-width:1240px;margin:auto;padding:
 
 /* value strip */
 .value{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
-.valueMain{background:var(--purple);color:#fff;padding:35px;border-radius:22px;min-height:320px;position:relative;overflow:hidden}
+.valueMain{background:var(--ink);color:#fff;padding:35px;border-radius:22px;min-height:320px;position:relative;overflow:hidden}
 .valueMain:after{content:"";position:absolute;width:250px;height:250px;border:35px solid var(--yellow);border-radius:50%;left:-80px;bottom:-130px}
 .valueMain h2{font-size:31px;margin:0 0 9px}.valueMain p{color:#ead7e5;font-size:13px;line-height:1.8;max-width:520px}
 .tools{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:22px}.tool{border:1px solid #ffffff25;background:#ffffff0c;border-radius:11px;padding:12px}
@@ -1131,7 +1131,7 @@ a{text-decoration:none;color:inherit}.wrap{max-width:1240px;margin:auto;padding:
 .proofGrid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
 .proofBox{padding:25px;border-left:1px solid var(--line)}.proofBox:last-child{border-left:0}
 .proofBox i{font-style:normal;font-size:25px}.proofBox b{display:block;margin:10px 0 5px;font-size:13px}.proofBox span{font-size:10px;color:var(--muted);line-height:1.6}
-.cta{background:var(--coral);color:#fff;border-radius:24px;padding:43px 46px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden}
+.cta{background:var(--orange);color:#fff;border-radius:24px;padding:43px 46px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden}
 .cta:after{content:"";position:absolute;width:220px;height:220px;border:34px solid var(--yellow);border-radius:50%;left:-90px;bottom:-130px}
 .cta h2{font-size:34px;margin:0 0 7px}.cta p{margin:0;color:#ffe5dc;font-size:13px}.cta .btn{position:relative;z-index:2;background:var(--yellow);color:var(--ink)}
 
