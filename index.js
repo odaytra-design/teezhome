@@ -1268,7 +1268,6 @@ if (request.method === "GET" && url.pathname === "/dashboard") return dashboard(
     if (request.method === "DELETE" && url.pathname === "/api/products") return deleteProduct(request,env);
     if (request.method === "POST" && url.pathname === "/api/marketers") return register(request,env);
     return json({ok:false,error:"Not Found"},404);
-  }
     if (request.method === "GET" && url.pathname === "/account") {
       return htmlResponse(`<!doctype html>
 <html lang="ar" dir="rtl">
@@ -1716,4 +1715,5 @@ ${mode==="register"?'<div class="field"><label>تأكيد كلمة المرور<
     }
 
 
+  }
 };
