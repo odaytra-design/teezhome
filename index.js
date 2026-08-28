@@ -1204,6 +1204,28 @@ show('orders');
 </script></body></html>`;
 }
 
+
+// V29: live dashboard data helper — keeps the original admin UI unchanged.
+async function loadDashboardLiveData(env, documentLike) {
+  if (!env || !env.DB || !documentLike) return;
+  try {
+    const [orders, products, marketers] = await Promise.all([
+      env.DB.prepare(`SELECT COUNT(*) AS n FROM orders`).first(),
+      env.DB.prepare(`SELECT COUNT(*) AS n FROM products WHERE status='active'`).first(),
+      env.DB.prepare(`SELECT COUNT(*) AS n FROM marketers`).first()
+    ]);
+    const map = {
+      "stat-orders": orders?.n ?? 0,
+      "stat-products": products?.n ?? 0,
+      "stat-marketers": marketers?.n ?? 0
+    };
+    for (const [id, value] of Object.entries(map)) {
+      const el = documentLike.getElementById(id);
+      if (el) el.textContent = String(value);
+    }
+  } catch (_) {}
+}
+
 export default {
   async fetch(request, env) {
 
