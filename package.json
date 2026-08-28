@@ -1,0 +1,12 @@
+{
+  "name": "syria-commerce",
+  "version": "0.12.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.127.0"
+  }
+}

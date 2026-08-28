@@ -1031,146 +1031,61 @@ export default {
     if (request.method === "GET" && url.pathname === "/") {
       return htmlResponse(`<!doctype html><html lang="ar" dir="rtl"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Syria Commerce | تسوّق بسهولة</title>
+<title>Syria Commerce | الرئيسية</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f8fafc;color:#172033;font-family:Arial,sans-serif}
-a{text-decoration:none}
-.container{max-width:1180px;margin:auto;padding:0 18px}
-.header{background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:10}
-.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{font-size:24px;font-weight:800;color:#111827}
-.navlinks{display:flex;gap:8px;align-items:center}
-.navlinks a{color:#475467;padding:10px 13px;border-radius:10px}
-.navlinks a:hover{background:#f2f4f7}
-.actions{display:flex;gap:8px;align-items:center}
-.btn{display:inline-block;padding:11px 17px;border-radius:11px;background:#111827;color:#fff;font-weight:700}
-.btn.light{background:#eef2f6;color:#172033}
-.hero{padding:70px 0 48px;background:linear-gradient(180deg,#fff 0%,#f8fafc 100%)}
-.heroGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
-.kicker{display:inline-block;background:#eef2ff;color:#3730a3;padding:7px 11px;border-radius:999px;font-weight:700;font-size:13px}
-h1{font-size:48px;line-height:1.15;margin:18px 0 14px;letter-spacing:-1px}
-.hero p{font-size:18px;line-height:1.8;color:#667085;margin:0 0 24px;max-width:650px}
-.heroActions{display:flex;gap:10px;flex-wrap:wrap}
-.heroCard{background:#111827;color:#fff;border-radius:24px;padding:28px;min-height:290px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 18px 45px #00000018}
-.heroCard .big{font-size:62px;font-weight:800}
-.heroCard .small{color:#cbd5e1;line-height:1.7}
-.section{padding:38px 0}
-.sectionHead{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:18px}
-.sectionHead h2{margin:0;font-size:28px}
-.muted{color:#667085}
-.products{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.product{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:18px}
-.productImg{height:190px;border-radius:14px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:52px}
-.product h3{margin:15px 0 7px;font-size:19px}
-.price{font-size:22px;font-weight:800;margin:8px 0 14px}
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.feature{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:20px}
-.icon{font-size:28px}
-.feature h3{margin:12px 0 7px}
-.feature p{margin:0;color:#667085;line-height:1.7}
-.cta{margin:20px 0 55px;background:#eef2ff;border-radius:24px;padding:30px;text-align:center}
-.cta h2{margin:0 0 9px}
-.footer{border-top:1px solid #e5e7eb;background:#fff;padding:24px 0;color:#667085}
-@media(max-width:800px){
-  .navlinks{display:none}.heroGrid{grid-template-columns:1fr}.hero{padding-top:42px}h1{font-size:37px}
-  .products,.features{grid-template-columns:1fr}.heroCard{min-height:220px}
-}
+*{box-sizing:border-box}body{margin:0;background:#f8fafc;color:#172033;font-family:Arial,sans-serif}
+a{text-decoration:none}.container{max-width:1180px;margin:auto;padding:0 18px}
+.header{background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:20}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.logo{font-size:24px;font-weight:800;color:#111827}.links{display:flex;gap:6px}.links a{color:#475467;padding:10px 12px;border-radius:10px}.links a:hover{background:#f2f4f7}
+.actions{display:flex;gap:8px}.btn{display:inline-block;padding:11px 17px;border-radius:11px;background:#111827;color:#fff;font-weight:700}.btn.alt{background:#eef2f6;color:#172033}
+.hero{padding:68px 0 52px;background:linear-gradient(180deg,#fff,#f8fafc)}
+.heroGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:42px;align-items:center}
+.kicker{display:inline-block;background:#eef2ff;color:#3730a3;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:700}
+h1{font-size:48px;line-height:1.16;letter-spacing:-1px;margin:18px 0 14px}.hero p{font-size:18px;line-height:1.8;color:#667085;max-width:650px;margin:0 0 24px}
+.heroBtns{display:flex;gap:10px;flex-wrap:wrap}.visual{background:#111827;color:#fff;border-radius:24px;padding:28px;min-height:300px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 20px 50px #00000015}
+.visualTitle{font-size:13px;color:#cbd5e1}.visualName{font-size:46px;font-weight:800;line-height:1.05;margin-top:8px}.visualBottom{color:#cbd5e1;line-height:1.8}
+.section{padding:42px 0}.head{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px;gap:15px}.head h2{margin:0;font-size:28px}.muted{color:#667085}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:18px}.pic{height:175px;border-radius:14px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:50px}.card h3{margin:14px 0 7px}.price{font-size:20px;font-weight:800;margin-top:12px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:22px}.icon{font-size:28px}.feature h3{margin:12px 0 7px}.feature p{margin:0;color:#667085;line-height:1.7}
+.cta{background:#eef2ff;border-radius:24px;padding:30px;text-align:center;margin:10px 0 55px}.cta h2{margin:0 0 8px}.footer{background:#fff;border-top:1px solid #e5e7eb;padding:24px 0;color:#667085}
+@media(max-width:800px){.links{display:none}.heroGrid{grid-template-columns:1fr}h1{font-size:38px}.cards,.features{grid-template-columns:1fr}.visual{min-height:240px}}
 </style></head><body>
+<header class="header"><div class="container nav">
+<a class="logo" href="/">Syria Commerce</a>
+<nav class="links"><a href="/">الرئيسية</a><a href="/products">المنتجات</a><a href="/login">تسجيل الدخول</a></nav>
+<div class="actions"><a class="btn alt" href="/login">حسابي</a><a class="btn" href="/products">تسوّق الآن</a></div>
+</div></header>
 
-<header class="header">
-  <div class="container nav">
-    <a class="brand" href="/">Syria Commerce</a>
-    <nav class="navlinks">
-      <a href="/">الرئيسية</a>
-      <a href="/products">المنتجات</a>
-      <a href="/login">تسجيل الدخول</a>
-    </nav>
-    <div class="actions">
-      <a class="btn light" href="/login">حسابي</a>
-      <a class="btn" href="/products">تسوّق الآن</a>
-    </div>
-  </div>
-</header>
+<section class="hero"><div class="container heroGrid">
+<div><span class="kicker">منصة التجارة الإلكترونية</span>
+<h1>كل ما تحتاجه للتجارة،<br>في مكان واحد.</h1>
+<p>تصفح المنتجات، اختر ما يناسبك، واطلب بسهولة. ومع نظام المسوقين، تقدر تبدأ التسويق وتحصل على عمولتك.</p>
+<div class="heroBtns"><a class="btn" href="/products">تصفح المنتجات</a><a class="btn alt" href="/register">انضم كمسوّق</a></div>
+</div>
+<div class="visual"><div><div class="visualTitle">مرحباً بك في</div><div class="visualName">Syria<br>Commerce</div></div>
+<div class="visualBottom">منتجات • طلبات • مسوقون<br>تجربة بسيطة وواضحة من البداية.</div></div>
+</div></section>
 
-<section class="hero">
-  <div class="container heroGrid">
-    <div>
-      <span class="kicker">Syria Commerce</span>
-      <h1>تسوّق بسهولة،<br>واختر ما يناسبك.</h1>
-      <p>منصة تجارة إلكترونية تجمع المنتجات والعروض في مكان واحد، بتجربة بسيطة وسريعة للعميل والمسوق.</p>
-      <div class="heroActions">
-        <a class="btn" href="/products">استعرض المنتجات</a>
-        <a class="btn light" href="/register">انضم كمسوّق</a>
-      </div>
-    </div>
-    <div class="heroCard">
-      <div>
-        <div class="small">تجربة التسوق تبدأ من هنا</div>
-        <div class="big">Syria<br>Commerce</div>
-      </div>
-      <div class="small">منتجات • طلبات • مسوقون<br>كلها ضمن منصة واحدة.</div>
-    </div>
-  </div>
-</section>
+<section class="section"><div class="container">
+<div class="head"><div><h2>منتجات مميزة</h2><div class="muted">اكتشف المنتجات المتوفرة</div></div><a class="btn alt" href="/products">عرض المنتجات</a></div>
+<div class="cards">
+<div class="card"><div class="pic">📦</div><h3>منتجات متنوعة</h3><div class="muted">خيارات متعددة بانتظارك</div></div>
+<div class="card"><div class="pic">🛍️</div><h3>عروض مميزة</h3><div class="muted">تابع المنتجات والعروض الجديدة</div></div>
+<div class="card"><div class="pic">⭐</div><h3>اختياراتنا</h3><div class="muted">منتجات مختارة بعناية</div></div>
+</div></div></section>
 
-<section class="section">
-  <div class="container">
-    <div class="sectionHead">
-      <div><h2>منتجات مميزة</h2><div class="muted">اختيارات جاهزة للبدء</div></div>
-      <a class="btn light" href="/products">عرض الكل</a>
-    </div>
-    <div class="products">
-      <article class="product">
-        <div class="productImg">📦</div>
-        <h3>منتج تجريبي</h3>
-        <div class="muted">منتج مميز من Syria Commerce</div>
-        <div class="price">100</div>
-        <a class="btn" href="/products">عرض المنتج</a>
-      </article>
-      <article class="product">
-        <div class="productImg">🛍️</div>
-        <h3>منتجات متنوعة</h3>
-        <div class="muted">اكتشف المنتجات المتوفرة</div>
-        <div class="price">عروض متنوعة</div>
-        <a class="btn" href="/products">استكشف</a>
-      </article>
-      <article class="product">
-        <div class="productImg">⭐</div>
-        <h3>الأكثر طلباً</h3>
-        <div class="muted">اختيارات تستحق التجربة</div>
-        <div class="price">شاهد الآن</div>
-        <a class="btn" href="/products">استعرض</a>
-      </article>
-    </div>
-  </div>
-</section>
+<section class="section"><div class="container">
+<div class="head"><div><h2>كيف تعمل المنصة؟</h2><div class="muted">ثلاث خطوات بسيطة</div></div></div>
+<div class="features">
+<div class="feature"><div class="icon">🔎</div><h3>1. اختر المنتج</h3><p>تصفح المنتجات واختر المنتج المناسب لك.</p></div>
+<div class="feature"><div class="icon">🛒</div><h3>2. اطلب بسهولة</h3><p>أكمل طلبك من خلال خطوات واضحة وسريعة.</p></div>
+<div class="feature"><div class="icon">🤝</div><h3>3. كن مسوّقاً</h3><p>شارك المنتجات وساهم في الوصول للعملاء مقابل عمولة.</p></div>
+</div></div></section>
 
-<section class="section">
-  <div class="container">
-    <div class="sectionHead"><div><h2>ليش Syria Commerce؟</h2><div class="muted">تجربة بسيطة من أول زيارة حتى الطلب</div></div></div>
-    <div class="features">
-      <div class="feature"><div class="icon">⚡</div><h3>بسيط وسريع</h3><p>الوصول للمنتجات والطلب بدون خطوات معقدة.</p></div>
-      <div class="feature"><div class="icon">🛒</div><h3>تسوق من مكان واحد</h3><p>المنتجات والعروض مرتبة بطريقة واضحة وسهلة.</p></div>
-      <div class="feature"><div class="icon">🤝</div><h3>فرصة للمسوقين</h3><p>المسوق يختار المنتجات ويساعد في الوصول للعملاء.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="container">
-  <div class="cta">
-    <h2>جاهز تبدأ؟</h2>
-    <div class="muted" style="margin-bottom:18px">تصفح المنتجات أو انضم إلى شبكة المسوقين.</div>
-    <div class="heroActions" style="justify-content:center">
-      <a class="btn" href="/products">ابدأ التسوق</a>
-      <a class="btn light" href="/register">كن مسوّقاً</a>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">© Syria Commerce — جميع الحقوق محفوظة</div>
-</footer>
+<div class="container"><div class="cta"><h2>جاهز تبدأ؟</h2><div class="muted" style="margin-bottom:18px">ابدأ بتصفح المنتجات أو انضم إلى شبكة المسوقين.</div>
+<div class="heroBtns" style="justify-content:center"><a class="btn" href="/products">ابدأ التسوق</a><a class="btn alt" href="/register">انضم كمسوّق</a></div></div></div>
+<footer class="footer"><div class="container">© Syria Commerce — جميع الحقوق محفوظة</div></footer>
 </body></html>`,"Syria Commerce | الرئيسية");
     }
 
