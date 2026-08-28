@@ -1267,6 +1267,121 @@ if (request.method === "GET" && url.pathname === "/dashboard") return dashboard(
     if (request.method === "POST" && url.pathname === "/api/products") return createProduct(request,env);
     if (request.method === "DELETE" && url.pathname === "/api/products") return deleteProduct(request,env);
     if (request.method === "POST" && url.pathname === "/api/marketers") return register(request,env);
+
+    /* ===== Admin data API V26 ===== */
+    if (url.pathname === "/api/admin/stats" && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const [orders, revenue, customers, marketers, products, pending] = await Promise.all([
+        env.DB.prepare(`SELECT COUNT(*) AS count FROM orders`).first(),
+        env.DB.prepare(`SELECT COALESCE(SUM(total),0) AS total FROM orders WHERE status NOT IN ('cancelled','returned')`).first(),
+        env.DB.prepare(`SELECT COUNT(*) AS count FROM users WHERE role='customer' AND status='active'`).first(),
+        env.DB.prepare(`SELECT COUNT(*) AS count FROM users WHERE role='marketer' AND status='active'`).first(),
+        env.DB.prepare(`SELECT COUNT(*) AS count FROM products WHERE status='active'`).first(),
+        env.DB.prepare(`SELECT COALESCE(SUM(amount),0) AS total FROM commissions WHERE status='pending'`).first()
+      ]);
+      return jsonResponse({ok:true,stats:{
+        orders:Number(orders?.count||0),revenue:Number(revenue?.total||0),
+        customers:Number(customers?.count||0),marketers:Number(marketers?.count||0),
+        products:Number(products?.count||0),pending_commissions:Number(pending?.total||0)
+      }});
+    }
+
+    if (url.pathname === "/api/admin/products" && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const result = await env.DB.prepare(
+        `SELECT p.*,c.name AS category_name FROM products p
+         LEFT JOIN categories c ON c.id=p.category_id
+         ORDER BY p.created_at DESC LIMIT 500`
+      ).all();
+      return jsonResponse({ok:true,products:result.results||[]});
+    }
+
+    if (url.pathname === "/api/admin/orders" && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const status = url.searchParams.get("status");
+      let sql = `SELECT o.*,m.full_name AS marketer_name FROM orders o LEFT JOIN users m ON m.id=o.marketer_id`;
+      const params = [];
+      if (status) { sql += ` WHERE o.status=?`; params.push(status); }
+      sql += ` ORDER BY o.created_at DESC LIMIT 500`;
+      const result = await env.DB.prepare(sql).bind(...params).all();
+      return jsonResponse({ok:true,orders:result.results||[]});
+    }
+
+    if (url.pathname.startsWith("/api/admin/orders/") && request.method === "PATCH") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const id = url.pathname.split("/").pop();
+      let body; try { body=await request.json(); } catch { return jsonResponse({ok:false,error:"INVALID_JSON"},400); }
+      const allowed=["pending","confirmed","processing","shipped","delivered","cancelled","returned"];
+      if (!allowed.includes(body.status)) return jsonResponse({ok:false,error:"INVALID_ORDER_STATUS"},400);
+      const order=await env.DB.prepare(`SELECT * FROM orders WHERE id=? LIMIT 1`).bind(id).first();
+      if (!order) return jsonResponse({ok:false,error:"ORDER_NOT_FOUND"},404);
+      await env.DB.prepare(`UPDATE orders SET status=?,updated_at=CURRENT_TIMESTAMP WHERE id=?`).bind(body.status,id).run();
+
+      if (["cancelled","returned"].includes(body.status) &&
+          !["cancelled","returned"].includes(order.status) && order.marketer_id) {
+        const pending=await env.DB.prepare(
+          `SELECT id,amount FROM commissions WHERE order_id=? AND status='pending' LIMIT 1`
+        ).bind(id).first();
+        if (pending) {
+          await env.DB.prepare(`UPDATE commissions SET status='rejected' WHERE id=?`).bind(pending.id).run();
+          await env.DB.prepare(
+            `UPDATE marketer_profiles SET pending_balance=pending_balance-?,updated_at=CURRENT_TIMESTAMP WHERE user_id=?`
+          ).bind(pending.amount,order.marketer_id).run();
+        }
+      }
+      return jsonResponse({ok:true,order_id:id,status:body.status});
+    }
+
+    if (url.pathname === "/api/admin/marketers" && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const result=await env.DB.prepare(
+        `SELECT u.id,u.full_name,u.email,u.phone,u.status,mp.referral_code,mp.commission_rate,
+                mp.balance,mp.pending_balance,mp.total_sales,mp.total_orders
+         FROM users u JOIN marketer_profiles mp ON mp.user_id=u.id
+         WHERE u.role='marketer' ORDER BY u.created_at DESC LIMIT 500`
+      ).all();
+      return jsonResponse({ok:true,marketers:result.results||[]});
+    }
+
+    if (url.pathname === "/api/admin/commissions" && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const status=url.searchParams.get("status");
+      let sql=`SELECT c.*,o.order_number,o.status AS order_status,u.full_name AS marketer_name
+               FROM commissions c JOIN orders o ON o.id=c.order_id JOIN users u ON u.id=c.marketer_id`;
+      const params=[];
+      if (status){sql+=` WHERE c.status=?`;params.push(status);}
+      sql+=` ORDER BY c.created_at DESC LIMIT 500`;
+      const result=await env.DB.prepare(sql).bind(...params).all();
+      return jsonResponse({ok:true,commissions:result.results||[]});
+    }
+
+    if (url.pathname.startsWith("/api/admin/commissions/") && request.method === "PATCH") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const id=url.pathname.split("/").pop();
+      let body; try {body=await request.json();} catch {return jsonResponse({ok:false,error:"INVALID_JSON"},400);}
+      const next=body.status;
+      if (!["approved","rejected","paid"].includes(next)) return jsonResponse({ok:false,error:"INVALID_STATUS"},400);
+      const c=await env.DB.prepare(`SELECT * FROM commissions WHERE id=? LIMIT 1`).bind(id).first();
+      if (!c) return jsonResponse({ok:false,error:"COMMISSION_NOT_FOUND"},404);
+      const now=new Date().toISOString();
+      if(next==="approved" && c.status==="pending"){
+        await env.DB.prepare(`UPDATE commissions SET status='approved',approved_at=? WHERE id=?`).bind(now,id).run();
+        await env.DB.prepare(`UPDATE marketer_profiles SET balance=balance+?,pending_balance=pending_balance-?,updated_at=CURRENT_TIMESTAMP WHERE user_id=?`)
+          .bind(c.amount,c.amount,c.marketer_id).run();
+      } else if(next==="rejected" && ["pending","approved"].includes(c.status)){
+        if(c.status==="approved")
+          await env.DB.prepare(`UPDATE marketer_profiles SET balance=balance-?,updated_at=CURRENT_TIMESTAMP WHERE user_id=?`).bind(c.amount,c.marketer_id).run();
+        else
+          await env.DB.prepare(`UPDATE marketer_profiles SET pending_balance=pending_balance-?,updated_at=CURRENT_TIMESTAMP WHERE user_id=?`).bind(c.amount,c.marketer_id).run();
+        await env.DB.prepare(`UPDATE commissions SET status='rejected' WHERE id=?`).bind(id).run();
+      } else if(next==="paid" && c.status==="approved"){
+        await env.DB.prepare(`UPDATE commissions SET status='paid',paid_at=? WHERE id=?`).bind(now,id).run();
+        await env.DB.prepare(`UPDATE marketer_profiles SET balance=balance-?,updated_at=CURRENT_TIMESTAMP WHERE user_id=?`).bind(c.amount,c.marketer_id).run();
+      } else return jsonResponse({ok:false,error:"INVALID_TRANSITION"},409);
+      return jsonResponse({ok:true,commission_id:id,status:next});
+    }
+
+
     return json({ok:false,error:"Not Found"},404);
     if (request.method === "GET" && url.pathname === "/account") {
       return htmlResponse(`<!doctype html>
