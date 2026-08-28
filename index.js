@@ -1550,6 +1550,11 @@ ${mode==="register"?'<div class="field"><label>تأكيد كلمة المرور<
           `INSERT INTO commissions (id,order_id,marketer_id,amount,status)
            VALUES (?,?,?,?,'pending')`
         ).bind(crypto.randomUUID(), orderId, marketerId, commissionTotal).run();
+        await env.DB.prepare(
+          `UPDATE marketer_profiles
+           SET pending_balance=pending_balance+?, total_sales=total_sales+?, total_orders=total_orders+1,
+               updated_at=CURRENT_TIMESTAMP WHERE user_id=?`
+        ).bind(commissionTotal, total, marketerId).run();
       }
 
       return jsonResponse({
@@ -1633,6 +1638,81 @@ ${mode==="register"?'<div class="field"><label>تأكيد كلمة المرور<
          ORDER BY last_clicked_at DESC LIMIT 200`
       ).bind(marketerId).all();
       return jsonResponse({ok:true,referrals:result.results || []});
+    }
+
+
+    if (url.pathname === "/api/commissions" && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const marketerId = url.searchParams.get("marketer_id");
+      if (!marketerId) return jsonResponse({ok:false,error:"MISSING_MARKETER_ID"},400);
+      const result = await env.DB.prepare(
+        `SELECT c.*,o.order_number,o.status AS order_status,o.total AS order_total
+         FROM commissions c JOIN orders o ON o.id=c.order_id
+         WHERE c.marketer_id=? ORDER BY c.created_at DESC LIMIT 200`
+      ).bind(marketerId).all();
+      const totals = await env.DB.prepare(
+        `SELECT
+          COALESCE(SUM(amount),0) AS total,
+          COALESCE(SUM(CASE WHEN status='pending' THEN amount ELSE 0 END),0) AS pending,
+          COALESCE(SUM(CASE WHEN status='approved' THEN amount ELSE 0 END),0) AS approved,
+          COALESCE(SUM(CASE WHEN status='paid' THEN amount ELSE 0 END),0) AS paid
+         FROM commissions WHERE marketer_id=?`
+      ).bind(marketerId).first();
+      return jsonResponse({ok:true,commissions:result.results || [],totals});
+    }
+
+    if (url.pathname.startsWith("/api/commissions/") && request.method === "PATCH") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const id = url.pathname.split("/").pop();
+      let body;
+      try { body = await request.json(); } catch { return jsonResponse({ok:false,error:"INVALID_JSON"},400); }
+      const next = body.status;
+      if (!["approved","rejected","paid"].includes(next))
+        return jsonResponse({ok:false,error:"INVALID_STATUS"},400);
+
+      const commission = await env.DB.prepare(
+        `SELECT * FROM commissions WHERE id=? LIMIT 1`
+      ).bind(id).first();
+      if (!commission) return jsonResponse({ok:false,error:"COMMISSION_NOT_FOUND"},404);
+
+      const now = new Date().toISOString();
+      if (next === "approved") {
+        if (commission.status !== "pending")
+          return jsonResponse({ok:false,error:"INVALID_TRANSITION"},409);
+        await env.DB.prepare(
+          `UPDATE commissions SET status='approved',approved_at=? WHERE id=?`
+        ).bind(now,id).run();
+        await env.DB.prepare(
+          `UPDATE marketer_profiles
+           SET balance=balance+?, pending_balance=pending_balance-?,
+               updated_at=CURRENT_TIMESTAMP WHERE user_id=?`
+        ).bind(commission.amount,commission.amount,commission.marketer_id).run();
+      } else if (next === "rejected") {
+        if (!["pending","approved"].includes(commission.status))
+          return jsonResponse({ok:false,error:"INVALID_TRANSITION"},409);
+        if (commission.status === "approved") {
+          await env.DB.prepare(
+            `UPDATE marketer_profiles SET balance=balance-?,updated_at=CURRENT_TIMESTAMP WHERE user_id=?`
+          ).bind(commission.amount,commission.marketer_id).run();
+        } else {
+          await env.DB.prepare(
+            `UPDATE marketer_profiles SET pending_balance=pending_balance-?,updated_at=CURRENT_TIMESTAMP WHERE user_id=?`
+          ).bind(commission.amount,commission.marketer_id).run();
+        }
+        await env.DB.prepare(
+          `UPDATE commissions SET status='rejected' WHERE id=?`
+        ).bind(id).run();
+      } else if (next === "paid") {
+        if (commission.status !== "approved")
+          return jsonResponse({ok:false,error:"INVALID_TRANSITION"},409);
+        await env.DB.prepare(
+          `UPDATE commissions SET status='paid',paid_at=? WHERE id=?`
+        ).bind(now,id).run();
+        await env.DB.prepare(
+          `UPDATE marketer_profiles SET balance=balance-?,updated_at=CURRENT_TIMESTAMP WHERE user_id=?`
+        ).bind(commission.amount,commission.marketer_id).run();
+      }
+      return jsonResponse({ok:true,commission_id:id,status:next});
     }
 
 
