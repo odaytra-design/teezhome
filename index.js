@@ -1033,81 +1033,225 @@ export default {
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Syria Commerce | Commerce OS للمسوّقين</title>
+<title>Syria Commerce | منصة المسوّقين</title>
 <style>
-:root{--ink:#110b09;--muted:#694f45;--paper:#fff0dc;--white:#fffdf8;--line:#e4bda4;--dark:#110b09;--soft:#ffb52e;--accent:#ff2414;--hot:#ff5a00;--yellow:#fff000;--pink:#ff007a}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Tahoma,sans-serif}a{text-decoration:none;color:inherit}.wrap{max-width:1280px;margin:auto;padding:0 24px}
-.top{height:34px;background:#021517;color:#a9c8c1;font-size:11px}.topIn{height:100%;display:flex;justify-content:space-between;align-items:center}.topIn div{display:flex;gap:19px}
-.nav{height:78px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}.navIn{height:100%;display:flex;align-items:center;gap:32px}.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:22px;white-space:nowrap}.mark{width:42px;height:42px;border-radius:13px;background:var(--g);color:#03251f;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 9px 25px #12c98728}.brand small{display:block;font-size:7px;letter-spacing:2.4px;color:#778580;margin-top:2px}.links{display:flex;align-items:center;gap:2px;flex:1}.links a{padding:11px 13px;border-radius:10px;color:#3a4b47;font-weight:800;font-size:13px}.links a:hover,.links a.active{background:#edf9f4;color:var(--g2)}.navActions{display:flex;gap:8px}.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:11px;border:0;padding:12px 18px;font-weight:900;font-size:13px;cursor:pointer}.g{background:var(--g);color:#03251f}.d{background:#062d2c;color:#fff}.l{background:#eef3f1;color:#14312d}.outline{background:#fff;color:#0a4039;border:1px solid #b9d9cf}
-.hero{background:radial-gradient(circle at 72% 45%,#0b6452 0,#06372f 31%,#041d21 66%,#031317 100%);color:#fff;overflow:hidden}.heroIn{min-height:620px;display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:40px}.copy{padding:54px 0;position:relative;z-index:3}.eyebrow{display:inline-flex;align-items:center;gap:7px;border:1px solid #168e70;background:#063f38;color:#bdf4df;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:900}.copy h1{font-size:67px;line-height:1.02;letter-spacing:-3px;margin:20px 0 18px}.copy h1 span{color:var(--g)}.copy p{max-width:690px;color:#bcd3ce;font-size:18px;line-height:1.9;margin:0 0 25px}.heroBtns{display:flex;gap:9px;flex-wrap:wrap}.heroBtns .l{background:#fff;color:#07352f}.proof{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;color:#a8c6c0;font-size:11px}.proof span:before{content:"✓";color:var(--g);font-weight:900;margin-left:5px}
-.visual{position:relative;height:535px;display:flex;align-items:center;justify-content:center}.glow{position:absolute;width:480px;height:480px;border-radius:50%;background:#10d18d18;filter:blur(22px)}.dashboard{width:510px;background:#fff;color:var(--ink);border-radius:22px;padding:17px;box-shadow:0 35px 90px #0009;transform:rotate(1.2deg);z-index:2}.dashTop{display:flex;align-items:center;justify-content:space-between;padding:2px 2px 14px;border-bottom:1px solid var(--line)}.dashTop b{font-size:14px}.dashUser{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:9px}.avatar{width:29px;height:29px;border-radius:9px;background:#dff7ed;color:var(--g2);display:flex;align-items:center;justify-content:center;font-weight:900}.metrics{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:8px;margin:11px 0}.metric{background:#f3f7f5;border-radius:11px;padding:11px}.metric small{display:block;color:var(--muted);font-size:8px;margin-bottom:6px}.metric b{font-size:16px}.metric.main{background:#e9f9f2}.metric.main b{font-size:20px;color:var(--g2)}.graph{height:160px;border:1px solid var(--line);border-radius:12px;padding:12px;position:relative}.graphHead{display:flex;justify-content:space-between;font-size:9px;color:var(--muted)}.graphHead strong{color:var(--g2)}.lineChart{position:absolute;left:14px;right:14px;bottom:17px;height:105px}.gridline{position:absolute;left:0;right:0;border-top:1px dashed #dfe8e4}.gl1{top:15%}.gl2{top:45%}.gl3{top:75%}.poly{position:absolute;inset:8px 0 0;overflow:visible}.poly svg{width:100%;height:100%}.dashBottom{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}.smallBox{border:1px solid var(--line);border-radius:11px;padding:10px}.smallBox b{display:block;font-size:10px;margin-bottom:7px}.miniRow{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid #edf1ef;font-size:9px}.miniRow span{color:var(--muted)}.ok{color:var(--g2);font-weight:900}.float{position:absolute;background:#fff;color:var(--ink);border:1px solid #e6eeeb;border-radius:14px;padding:12px 14px;box-shadow:0 18px 35px #0005;z-index:4}.float b{display:block;font-size:12px}.float span{font-size:9px;color:var(--muted)}.f1{top:62px;right:-4px}.f1 b{color:var(--g2)}.f2{bottom:55px;left:-5px}.f2 b{font-size:13px}.f2 strong{color:var(--g2)}
-.section{padding:62px 0}.section.white{background:#fff}.center{text-align:center;margin-bottom:28px}.center h2{font-size:34px;letter-spacing:-1px;margin:0 0 7px}.center p{color:var(--muted);margin:0;font-size:14px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:23px;position:relative}.step:after{content:"";position:absolute;top:42px;left:-9px;width:17px;height:1px;background:#b8d8cd}.step:last-child:after{display:none}.num{width:42px;height:42px;border-radius:12px;background:#e8faf2;color:var(--g2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900}.step h3{margin:15px 0 6px;font-size:16px}.step p{color:var(--muted);font-size:12px;line-height:1.75;margin:0}
-.productSection{background:#f1f7f4}.productTop{display:flex;justify-content:space-between;align-items:end;margin-bottom:20px}.productTop h2{font-size:31px;margin:0 0 6px}.productTop p{color:var(--muted);margin:0;font-size:13px}.products{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.pcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:11px}.pimage{height:185px;border-radius:12px;background:linear-gradient(145deg,#eef5f2,#e4ece8);display:flex;align-items:center;justify-content:center;font-size:52px}.ptag{display:inline-flex;background:#e9f9f2;color:var(--g2);font-size:9px;font-weight:900;border-radius:6px;padding:5px 7px;margin-top:10px}.pcard h3{font-size:14px;margin:8px 2px 4px}.pcard p{font-size:11px;color:var(--muted);margin:0 2px 10px}.profitRow{background:#f5faf8;border-radius:9px;padding:9px;display:flex;justify-content:space-between;align-items:center}.profitRow small{display:block;color:var(--muted);font-size:8px}.profitRow b{color:var(--g2);font-size:13px}.marketBtn{font-size:11px;padding:9px 12px}
-.features{display:grid;grid-template-columns:1fr 1fr;gap:15px}.feature{border-radius:22px;padding:32px;min-height:300px}.feature.dark{background:#062f2c;color:#fff}.feature.dark p{color:#c2dad5}.feature.mint{background:#e8f8f1;border:1px solid #d2eee1}.feature h2{font-size:27px;margin:0 0 8px}.feature p{line-height:1.8;font-size:13px;margin:0}.tools{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}.tool{background:#0a403b;border:1px solid #1b5c53;border-radius:10px;padding:11px}.tool b{display:block;font-size:11px}.tool span{font-size:9px;color:#b7d3cd}.profitBig{font-size:46px;font-weight:900;color:var(--g2);margin:28px 0 3px}.profitLabel{font-size:10px;color:var(--muted)}.disclaimer{font-size:9px;color:var(--muted);margin-top:20px}
-.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.trustCard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;text-align:center}.trustCard i{font-style:normal;font-size:24px}.trustCard b{display:block;margin:9px 0 5px;font-size:13px}.trustCard span{font-size:10px;color:var(--muted);line-height:1.6}
-.cta{background:linear-gradient(105deg,#052c2b,#0a7b5d);border-radius:24px;color:#fff;padding:42px 45px;display:flex;align-items:center;justify-content:space-between;gap:25px;box-shadow:0 20px 45px #073b3222}.cta h2{font-size:33px;margin:0 0 7px}.cta p{margin:0;color:#c5ddd8}.cta .l{background:#fff;color:#06352f;white-space:nowrap}
-.footer{background:#fff;border-top:1px solid var(--line);padding:29px 0}.foot{display:flex;justify-content:space-between;color:#72807d;font-size:11px}.footLinks{display:flex;gap:18px}.footLinks a:hover{color:var(--g2)}
-@media(max-width:1000px){.links{display:none}.heroIn{grid-template-columns:1fr}.visual{height:470px}.steps,.trust{grid-template-columns:repeat(2,1fr)}.products{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.top{display:none}.nav{height:68px}.navIn{gap:0;justify-content:space-between}.navActions .l{display:none}.brand{font-size:19px}.copy{padding:38px 0 5px}.copy h1{font-size:42px;letter-spacing:-1.5px}.copy p{font-size:16px}.visual{height:390px}.dashboard{width:100%;max-width:360px;padding:11px}.float{padding:9px}.f1{right:0;top:14px}.f2{left:0;bottom:30px}.metrics{gap:5px}.metric{padding:8px}.metric b{font-size:12px}.metric.main b{font-size:15px}.graph{height:120px}.dashBottom{display:none}.section{padding:45px 0}.center h2{font-size:27px}.steps,.products,.features,.trust{grid-template-columns:1fr}.productTop{align-items:start;gap:10px}.productTop .btn{display:none}.feature{min-height:auto;padding:25px}.cta{padding:30px 24px;flex-direction:column;align-items:flex-start}.cta h2{font-size:27px}.foot{flex-direction:column;gap:15px}}
+:root{
+  --ink:#17110d;--cream:#fff8ed;--paper:#fffdf8;--yellow:#ffe600;
+  --orange:#ff6a00;--coral:#ff3d35;--red:#e92820;--purple:#5b164f;
+  --line:#ead8c5;--muted:#735f52;--green:#087a59
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Tahoma,sans-serif}
+a{text-decoration:none;color:inherit}.wrap{max-width:1240px;margin:auto;padding:0 22px}
+
+/* header */
+.utility{height:34px;background:var(--ink);color:#fff1d7;font-size:11px}
+.utilityIn{height:100%;display:flex;align-items:center;justify-content:space-between}
+.utilityIn div{display:flex;gap:18px}.utility b{color:var(--yellow)}
+.nav{height:76px;background:#fffdf8;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.navIn{height:100%;display:flex;align-items:center;gap:28px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:950;font-size:21px;white-space:nowrap}
+.mark{width:42px;height:42px;border-radius:12px;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-weight:950;box-shadow:5px 5px 0 var(--ink)}
+.brand small{display:block;font-size:7px;letter-spacing:2px;color:#8a7568;margin-top:2px}
+.links{display:flex;align-items:center;gap:2px;flex:1}
+.links a{padding:10px 12px;border-radius:9px;font-weight:800;font-size:13px;color:#4b3c33}
+.links a:hover,.links a.active{background:#fff0d2;color:var(--orange)}
+.navActions{display:flex;gap:8px}.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:10px;border:0;padding:12px 18px;font-weight:950;font-size:13px;cursor:pointer}
+.btn.yellow{background:var(--yellow);color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.btn.dark{background:var(--ink);color:#fff}.btn.light{background:#fff;border:1px solid var(--line)}
+.btn.coral{background:var(--coral);color:#fff}
+
+/* hero */
+.hero{background:var(--cream);border-bottom:1px solid var(--line);overflow:hidden}
+.heroIn{min-height:610px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:30px}
+.copy{padding:65px 0;position:relative;z-index:2}
+.kicker{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--yellow);padding:9px 13px;border-radius:999px;font-weight:950;font-size:11px}
+.copy h1{font-size:66px;line-height:1.03;letter-spacing:-3px;margin:20px 0 17px}
+.copy h1 .hot{color:var(--coral)}
+.copy h1 .markText{background:var(--yellow);padding:0 8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.copy p{max-width:600px;color:var(--muted);font-size:18px;line-height:1.9;margin:0 0 24px}
+.heroBtns{display:flex;gap:10px;flex-wrap:wrap}
+.proof{display:flex;gap:18px;flex-wrap:wrap;margin-top:20px;font-size:11px;font-weight:800;color:#5e4d42}
+.proof span:before{content:"✓";display:inline-flex;width:18px;height:18px;align-items:center;justify-content:center;background:var(--yellow);border-radius:50%;margin-left:5px;color:var(--ink);font-weight:950}
+
+/* hero visual — editorial, not card-grid */
+.stage{height:535px;position:relative;display:flex;align-items:center;justify-content:center}
+.sun{position:absolute;width:410px;height:410px;border-radius:50%;background:var(--yellow);right:35px;top:65px}
+.sun:after{content:"";position:absolute;width:145px;height:145px;border-radius:50%;background:var(--coral);left:18px;bottom:18px}
+.poster{position:relative;z-index:2;width:455px;min-height:390px;background:var(--ink);color:#fff;border-radius:24px;padding:28px;transform:rotate(-2deg);box-shadow:14px 16px 0 var(--orange)}
+.poster:before{content:"";position:absolute;inset:14px;border:1px solid #ffffff24;border-radius:17px;pointer-events:none}
+.posterTop{display:flex;justify-content:space-between;align-items:center;color:#ffdca8;font-size:10px;font-weight:900}
+.posterLogo{width:48px;height:48px;border-radius:14px;background:var(--yellow);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:950;font-size:13px}
+.poster h2{font-size:40px;line-height:1.08;margin:30px 0 12px;letter-spacing:-1.5px}
+.poster h2 span{color:var(--yellow)}
+.poster p{color:#e7d7c8;font-size:13px;line-height:1.8;max-width:330px}
+.posterLine{height:1px;background:#ffffff22;margin:20px 0}
+.posterStats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.posterStat{background:#fff9ef;color:var(--ink);border-radius:11px;padding:10px}
+.posterStat small{display:block;color:#78685d;font-size:8px;margin-bottom:5px}.posterStat b{font-size:15px}
+.tape{position:absolute;z-index:3;right:12px;top:42px;background:var(--coral);color:#fff;padding:9px 13px;font-size:11px;font-weight:950;transform:rotate(7deg);box-shadow:4px 4px 0 var(--ink)}
+.sticker{position:absolute;z-index:4;left:4px;bottom:55px;background:#fff;border:2px solid var(--ink);padding:13px 16px;border-radius:13px;box-shadow:6px 6px 0 var(--yellow);font-weight:950}
+.sticker b{display:block;color:var(--green);font-size:17px}.sticker span{font-size:9px;color:var(--muted)}
+
+/* sections */
+.section{padding:78px 0}.section.alt{background:#fff2df}
+.center{text-align:center;margin-bottom:34px}.eyebrow{color:var(--orange);font-size:11px;font-weight:950;letter-spacing:.3px}
+.center h2{font-size:38px;letter-spacing:-1.3px;margin:5px 0 8px}.center p{color:var(--muted);margin:0;font-size:14px}
+
+/* process */
+.process{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.processItem{padding:25px 22px;border-left:1px solid #d8c3ae;min-height:185px}
+.processItem:last-child{border-left:0}.processNo{font-size:12px;font-weight:950;color:var(--coral)}
+.processItem h3{font-size:19px;margin:18px 0 7px}.processItem p{font-size:12px;line-height:1.8;color:var(--muted);margin:0}
+
+/* products */
+.productHead{display:flex;align-items:end;justify-content:space-between;margin-bottom:22px}
+.productHead h2{font-size:34px;margin:0 0 6px}.productHead p{margin:0;color:var(--muted);font-size:13px}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.pcard{background:#fff;border:1px solid var(--line);border-radius:17px;overflow:hidden;transition:.2s}
+.pcard:hover{transform:translateY(-4px);box-shadow:8px 10px 0 #ff6a0020}
+.pimage{height:175px;background:#f5eadb;display:flex;align-items:center;justify-content:center;font-size:58px}
+.pbody{padding:15px}.ptag{display:inline-block;background:var(--yellow);font-size:9px;font-weight:950;padding:5px 7px;border-radius:6px}
+.pcard h3{font-size:14px;margin:10px 0 5px}.pcard p{font-size:11px;color:var(--muted);line-height:1.6;margin:0 0 12px}
+.profitRow{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:11px}
+.profitRow small{display:block;color:var(--muted);font-size:8px}.profitRow b{font-size:13px;color:var(--green)}
+.market{padding:9px 11px;font-size:10px}
+
+/* value strip */
+.value{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.valueMain{background:var(--purple);color:#fff;padding:35px;border-radius:22px;min-height:320px;position:relative;overflow:hidden}
+.valueMain:after{content:"";position:absolute;width:250px;height:250px;border:35px solid var(--yellow);border-radius:50%;left:-80px;bottom:-130px}
+.valueMain h2{font-size:31px;margin:0 0 9px}.valueMain p{color:#ead7e5;font-size:13px;line-height:1.8;max-width:520px}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:22px}.tool{border:1px solid #ffffff25;background:#ffffff0c;border-radius:11px;padding:12px}
+.tool b{display:block;font-size:11px}.tool span{font-size:9px;color:#d8c1d2}
+.valueSide{background:var(--yellow);border-radius:22px;padding:35px;min-height:320px;display:flex;flex-direction:column;justify-content:space-between}
+.valueSide h2{font-size:28px;margin:0}.earn{font-size:48px;font-weight:950;letter-spacing:-2px}.earn small{display:block;font-size:10px;letter-spacing:0;font-weight:700}.valueSide p{font-size:11px;line-height:1.7;color:#5e4b38}
+
+/* proof / CTA */
+.proofGrid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+.proofBox{padding:25px;border-left:1px solid var(--line)}.proofBox:last-child{border-left:0}
+.proofBox i{font-style:normal;font-size:25px}.proofBox b{display:block;margin:10px 0 5px;font-size:13px}.proofBox span{font-size:10px;color:var(--muted);line-height:1.6}
+.cta{background:var(--coral);color:#fff;border-radius:24px;padding:43px 46px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden}
+.cta:after{content:"";position:absolute;width:220px;height:220px;border:34px solid var(--yellow);border-radius:50%;left:-90px;bottom:-130px}
+.cta h2{font-size:34px;margin:0 0 7px}.cta p{margin:0;color:#ffe5dc;font-size:13px}.cta .btn{position:relative;z-index:2;background:var(--yellow);color:var(--ink)}
+
+/* footer */
+.footer{background:var(--ink);color:#d9c8ba;padding:30px 0}.foot{display:flex;justify-content:space-between;gap:15px;font-size:11px}.footLinks{display:flex;gap:18px}.footLinks a:hover{color:var(--yellow)}
+
+@media(max-width:1000px){
+  .links{display:none}.heroIn{grid-template-columns:1fr}.stage{height:500px}.process{grid-template-columns:1fr 1fr}.products{grid-template-columns:1fr 1fr}.value{grid-template-columns:1fr}.proofGrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .utility{display:none}.nav{height:68px}.navIn{justify-content:space-between;gap:0}.navActions .light{display:none}
+  .brand{font-size:18px}.copy{padding:42px 0 15px}.copy h1{font-size:43px;letter-spacing:-1.5px}.copy p{font-size:16px}
+  .heroIn{min-height:auto}.stage{height:410px}.sun{width:300px;height:300px;right:12px;top:50px}
+  .poster{width:92%;min-height:330px;padding:22px;border-radius:19px}.poster h2{font-size:31px;margin:24px 0 10px}.posterStats{gap:5px}.posterStat{padding:8px}.posterStat b{font-size:12px}
+  .tape{right:0;top:30px}.sticker{left:0;bottom:25px}
+  .section{padding:55px 0}.center h2{font-size:29px}.process,.products,.value,.proofGrid{grid-template-columns:1fr}
+  .processItem{border-left:0;border-bottom:1px solid #d8c3ae;min-height:auto}.processItem:last-child{border-bottom:0}
+  .productHead{align-items:start;gap:10px}.productHead .btn{display:none}.products{gap:11px}
+  .valueMain,.valueSide{min-height:auto;padding:26px}.earn{font-size:40px}.tools{grid-template-columns:1fr 1fr}
+  .proofBox{border-left:0;border-bottom:1px solid var(--line)}.proofBox:last-child{border-bottom:0}
+  .cta{padding:31px 24px;flex-direction:column;align-items:flex-start}.cta h2{font-size:28px}
+  .foot{flex-direction:column}.footLinks{flex-wrap:wrap}
+}
 </style>
 </head>
 <body>
 
-<div class="top"><div class="wrap topIn"><div><span>✦ بدون مخزون</span><span>✦ منتجات جاهزة للبيع</span><span>✦ نظام أرباح واضح</span></div><div><span>دعم المسوّقين</span><span>مركز المساعدة</span></div></div></div>
+<div class="utility"><div class="wrap utilityIn">
+<div><span><b>⚡</b> منتجات جاهزة للبيع</span><span><b>✓</b> بدون مخزون</span><span><b>↗</b> ربح واضح</span></div>
+<div><span>مساحة المسوّق</span><span>الدعم</span></div>
+</div></div>
 
 <header class="nav"><div class="wrap navIn">
-<a class="brand" href="/"><span class="mark">SC</span><span>Syria Commerce<small>COMMERCE • SELL • EARN</small></span></a>
+<a class="brand" href="/"><span class="mark">SC</span><span>Syria Commerce<small>SELL • TRACK • EARN</small></span></a>
 <nav class="links"><a class="active" href="/">الرئيسية</a><a href="/products">المنتجات</a><a href="/marketer">كيف تربح؟</a><a href="/marketer">أدوات التسويق</a><a href="/login">لوحة المسوّق</a></nav>
-<div class="navActions"><a class="btn l" href="/login">دخول</a><a class="btn g" href="/register">ابدأ الآن ↗</a></div>
+<div class="navActions"><a class="btn light" href="/login">دخول</a><a class="btn yellow" href="/register">ابدأ الآن ↗</a></div>
 </div></header>
 
 <main>
 <section class="hero"><div class="wrap heroIn">
-<div class="copy"><span class="eyebrow">⚡ Commerce OS للمسوّقين</span>
-<h1>حوّل جمهورك إلى<br><span>مبيعات وأرباح.</span></h1>
-<p>منصة واحدة تختار منها المنتجات، تحصل على أدوات التسويق، تتابع طلباتك، وتشوف أرباحك — بدون تخزين ولا وجع رأس.</p>
-<div class="heroBtns"><a class="btn g" href="/register">🚀 ابدأ كمسوّق مجاناً</a><a class="btn l" href="/products">اكتشف المنتجات</a></div>
-<div class="proof"><span>لا تحتاج مخزون</span><span>منتجات جاهزة للتسويق</span><span>تتبع كل طلب</span></div></div>
-<div class="visual"><div class="glow"></div>
-<div class="float f1"><b>↗ +28.4% نمو</b><span>أداء مبيعات هذا الشهر</span></div>
-<div class="float f2"><b>💰 أرباح متاحة</b><strong>1,840,000 SYP</strong></div>
-<div class="dashboard"><div class="dashTop"><b>لوحة تحكم المسوّق</b><div class="dashUser"><span>مرحباً، أحمد</span><span class="avatar">SC</span></div></div>
-<div class="metrics"><div class="metric main"><small>أرباح هذا الشهر</small><b>1,840,000</b></div><div class="metric"><small>الطلبات</small><b>86</b></div><div class="metric"><small>المبيعات</small><b>12.4M</b></div></div>
-<div class="graph"><div class="graphHead"><span>أداء المبيعات</span><strong>+28.4%</strong></div><div class="lineChart"><i class="gridline gl1"></i><i class="gridline gl2"></i><i class="gridline gl3"></i><div class="poly"><svg viewBox="0 0 400 100" preserveAspectRatio="none"><polyline points="0,82 55,73 105,79 155,54 205,61 255,38 305,43 355,18 400,7" fill="none" stroke="#09a66d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
-<div class="dashBottom"><div class="smallBox"><b>آخر الطلبات</b><div class="miniRow"><span>#SC-1842</span><span class="ok">تم التأكيد ✓</span></div><div class="miniRow"><span>#SC-1839</span><span class="ok">تم الشحن ✓</span></div></div><div class="smallBox"><b>أفضل المنتجات</b><div class="miniRow"><span>سماعة لاسلكية</span><b>+45K</b></div><div class="miniRow"><span>ساعة رجالية</span><b>+80K</b></div></div></div>
-</div></div></div></section>
+<div class="copy">
+<span class="kicker">⚡ منصة مبنية للمسوّقين</span>
+<h1>أنت تجيب <span class="hot">البيع.</span><br>نحن نرتّب لك <span class="markText">الباقي.</span></h1>
+<p>اختَر المنتج، سوّقه لجمهورك، وتابع كل طلب وربح من مكان واحد. لا مخزون، لا تعقيد، ولا تشتّت بين عشر أدوات.</p>
+<div class="heroBtns"><a class="btn yellow" href="/register">🚀 ابدأ كمسوّق مجاناً</a><a class="btn dark" href="/products">شاهد المنتجات</a></div>
+<div class="proof"><span>لا تحتاج مخزون</span><span>أدوات تسويق جاهزة</span><span>تتبع الطلبات والأرباح</span></div>
+</div>
 
-<section class="section"><div class="wrap"><div class="center"><h2>من أول منتج إلى أول ربح</h2><p>نختصر عليك الطريق — أنت ركّز على التسويق، والمنصة تتولى الباقي.</p></div>
-<div class="steps"><div class="step"><div class="num">01</div><h3>سجّل كمسوّق</h3><p>أنشئ حسابك وادخل إلى مساحة العمل الخاصة بك.</p></div><div class="step"><div class="num">02</div><h3>اختر منتجك</h3><p>شاهد السعر والربح المتوقع واختر المنتجات المناسبة لجمهورك.</p></div><div class="step"><div class="num">03</div><h3>سوّق بذكاء</h3><p>استخدم المحتوى والروابط الجاهزة وابدأ الوصول لعملائك.</p></div><div class="step"><div class="num">04</div><h3>تابع واربح</h3><p>الطلبات تظهر لك، ونتائجك وأرباحك تظل أمامك دائماً.</p></div></div></div></section>
+<div class="stage">
+<div class="sun"></div>
+<div class="tape">جاهز للبيع 🔥</div>
+<div class="poster">
+<div class="posterTop"><span>SYRIA COMMERCE / MARKETER OS</span><span class="posterLogo">SC</span></div>
+<h2>حوّل كل <span>مشاهدة</span><br>إلى فرصة بيع.</h2>
+<p>مساحة عمل تجمع المنتجات، أدوات التسويق، الطلبات، والعمولات في تجربة واحدة واضحة.</p>
+<div class="posterLine"></div>
+<div class="posterStats">
+<div class="posterStat"><small>طلبات</small><b>86</b></div>
+<div class="posterStat"><small>مبيعات</small><b>12.4M</b></div>
+<div class="posterStat"><small>ربح</small><b>1.84M</b></div>
+</div>
+</div>
+<div class="sticker"><b>+28.4%</b><span>نمو المبيعات — مثال توضيحي</span></div>
+</div>
+</div></section>
 
-<section class="section productSection"><div class="wrap"><div class="productTop"><div><h2>منتجات عليها حركة 🔥</h2><p>اختيارات جاهزة لتبدأ التسويق بها</p></div><a class="btn l" href="/products">عرض كل المنتجات ←</a></div>
+<section class="section"><div class="wrap">
+<div class="center"><div class="eyebrow">كيف تبدأ؟</div><h2>من أول منتج إلى أول ربح</h2><p>أربع خطوات واضحة. بدون لف ودوران.</p></div>
+<div class="process">
+<div class="processItem"><div class="processNo">01 / حسابك</div><h3>سجّل كمسوّق</h3><p>أنشئ حسابك وادخل إلى مساحة العمل الخاصة بك.</p></div>
+<div class="processItem"><div class="processNo">02 / اختيار</div><h3>اختر منتجاً</h3><p>قارن المنتجات وشاهد السعر والربح المتوقع قبل أن تبدأ.</p></div>
+<div class="processItem"><div class="processNo">03 / تسويق</div><h3>سوّق لجمهورك</h3><p>استخدم الصور والمحتوى والروابط الجاهزة وابدأ البيع.</p></div>
+<div class="processItem"><div class="processNo">04 / متابعة</div><h3>تابع واربح</h3><p>راقب الطلبات والمبيعات والعمولات من مكان واحد.</p></div>
+</div>
+</div></section>
+
+<section class="section alt"><div class="wrap">
+<div class="productHead"><div><div class="eyebrow">اختيارات جاهزة</div><h2>منتجات تستاهل تسويقك 🔥</h2><p>اختَر المنتج الذي يناسب جمهورك وابدأ.</p></div><a class="btn dark" href="/products">عرض كل المنتجات ←</a></div>
 <div class="products">
-<article class="pcard"><div class="pimage">🎧</div><span class="ptag">الأكثر طلباً</span><h3>سماعة بلوتوث لاسلكية</h3><p>منتج سهل التسويق ومناسب لجمهور واسع</p><div class="profitRow"><div><small>ربحك المتوقع</small><b>45,000 SYP</b></div><a class="btn g marketBtn" href="/products">سوّق الآن</a></div></article>
-<article class="pcard"><div class="pimage">⌚</div><span class="ptag">هامش ربح قوي</span><h3>ساعة رجالية فاخرة</h3><p>تصميم مطلوب للمناسبات والاستخدام اليومي</p><div class="profitRow"><div><small>ربحك المتوقع</small><b>80,000 SYP</b></div><a class="btn g marketBtn" href="/products">سوّق الآن</a></div></article>
-<article class="pcard"><div class="pimage">🧴</div><span class="ptag">اختيار المسوّقين</span><h3>عطر رجالي أصلي</h3><p>منتج جذاب وسهل عرضه في الإعلانات</p><div class="profitRow"><div><small>ربحك المتوقع</small><b>65,000 SYP</b></div><a class="btn g marketBtn" href="/products">سوّق الآن</a></div></article>
-<article class="pcard"><div class="pimage">🎒</div><span class="ptag">جديد</span><h3>حقيبة متعددة الاستخدام</h3><p>مناسبة للعمل والسفر والاستخدام اليومي</p><div class="profitRow"><div><small>ربحك المتوقع</small><b>38,000 SYP</b></div><a class="btn g marketBtn" href="/products">سوّق الآن</a></div></article>
+<article class="pcard"><div class="pimage">🎧</div><div class="pbody"><span class="ptag">الأكثر طلباً</span><h3>سماعة بلوتوث لاسلكية</h3><p>منتج سهل التسويق ومناسب لجمهور واسع.</p><div class="profitRow"><div><small>ربحك المتوقع</small><b>45,000 SYP</b></div><a class="btn yellow market" href="/products">سوّق الآن</a></div></div></article>
+<article class="pcard"><div class="pimage">⌚</div><div class="pbody"><span class="ptag">هامش ربح قوي</span><h3>ساعة رجالية فاخرة</h3><p>تصميم مطلوب للمناسبات والاستخدام اليومي.</p><div class="profitRow"><div><small>ربحك المتوقع</small><b>80,000 SYP</b></div><a class="btn yellow market" href="/products">سوّق الآن</a></div></div></article>
+<article class="pcard"><div class="pimage">🧴</div><div class="pbody"><span class="ptag">اختيار المسوّقين</span><h3>عطر رجالي أصلي</h3><p>منتج جذاب وسهل عرضه في الإعلانات.</p><div class="profitRow"><div><small>ربحك المتوقع</small><b>65,000 SYP</b></div><a class="btn yellow market" href="/products">سوّق الآن</a></div></div></article>
+<article class="pcard"><div class="pimage">🎒</div><div class="pbody"><span class="ptag">جديد</span><h3>حقيبة متعددة الاستخدام</h3><p>مناسبة للعمل والسفر والاستخدام اليومي.</p><div class="profitRow"><div><small>ربحك المتوقع</small><b>38,000 SYP</b></div><a class="btn yellow market" href="/products">سوّق الآن</a></div></div></article>
+</div>
+</div></section>
+
+<section class="section"><div class="wrap">
+<div class="center"><div class="eyebrow">مساحة عملك</div><h2>كل ما تحتاجه للبيع، بمكان واحد</h2><p>أنت ركّز على التسويق. المنصة ترتّب لك التفاصيل.</p></div>
+<div class="value">
+<div class="valueMain"><h2>أدوات تسويق بدون وجع رأس.</h2><p>بدل ما تجمع أدواتك من أماكن مختلفة، خلي المنتجات والروابط والمحتوى ومتابعة الأداء داخل مساحة واحدة.</p>
+<div class="tools">
+<div class="tool"><b>📸 صور المنتجات</b><span>محتوى جاهز للنشر</span></div>
+<div class="tool"><b>🎬 مواد تسويقية</b><span>جهّز حملتك أسرع</span></div>
+<div class="tool"><b>🔗 روابط تتبع</b><span>اعرف مصدر كل طلب</span></div>
+<div class="tool"><b>📊 أرقام واضحة</b><span>مبيعاتك وأرباحك أمامك</span></div>
+</div></div>
+<div class="valueSide"><div><h2>أرباحك تحت السيطرة.</h2><p>مثال توضيحي للوحة المسوّق.</p></div><div class="earn">1,840,000<small>SYP أرباح هذا الشهر</small></div><div><p>تابع الطلبات، العمولات، وأداء المنتجات بدون جداول معقدة.</p><a class="btn dark" href="/register">افتح مساحة عملك ↗</a></div></div>
+</div>
+</div></section>
+
+<section class="section alt"><div class="wrap">
+<div class="center"><div class="eyebrow">ليش Syria Commerce؟</div><h2>مصمم حول شغل المسوّق</h2><p>مش منصة تجارية عامة — هذه مساحة عملك للبيع.</p></div>
+<div class="proofGrid">
+<div class="proofBox"><i>📦</i><b>بدون تخزين</b><span>لا تشتري مخزون قبل ما تبدأ البيع.</span></div>
+<div class="proofBox"><i>⚡</i><b>ابدأ بسرعة</b><span>منتجات وأدوات جاهزة من أول يوم.</span></div>
+<div class="proofBox"><i>📈</i><b>اعرف أرقامك</b><span>طلبات ومبيعات وعمولات بصورة واضحة.</span></div>
+<div class="proofBox"><i>🤝</i><b>دعم للمسوّق</b><span>تجربة مبنية حول احتياجاتك اليومية.</span></div>
+</div>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="wrap"><div class="cta">
+<div><h2>جاهز تبدأ أول عملية بيع؟</h2><p>سجّل مجاناً، اختَر منتجك، وابدأ التسويق اليوم.</p></div>
+<a class="btn" href="/register">ابدأ كمسوّق الآن ↗</a>
 </div></div></section>
-
-<section class="section white"><div class="wrap"><div class="center"><h2>مساحة عمل كاملة للمسوّق</h2><p>مو بس منتجات — كل الأدوات التي تحتاجها لتكبر مبيعاتك.</p></div>
-<div class="features"><div class="feature dark"><h2>أدوات التسويق في مكان واحد</h2><p>لا تضيع وقتك في تجهيز المواد من الصفر. اختر المنتج وخذ الأدوات التي تحتاجها.</p><div class="tools"><div class="tool"><b>📸 صور المنتجات</b><span>محتوى جاهز للنشر</span></div><div class="tool"><b>🎬 فيديوهات</b><span>مواد تسويقية جاهزة</span></div><div class="tool"><b>🔗 روابط</b><span>شارك وتتبع طلباتك</span></div><div class="tool"><b>📊 تحليلات</b><span>اعرف ما الذي يبيع</span></div></div></div>
-<div class="feature mint"><h2>أرباحك تحت السيطرة</h2><p>اعرف بالضبط كم بعت، كم ربحت، وما هي المنتجات التي تحقق أفضل أداء.</p><div class="profitBig">1,840,000</div><div class="profitLabel">SYP أرباح مثال هذا الشهر</div><a class="btn d" href="/register" style="margin-top:20px">افتح مساحة عملك ↗</a><div class="disclaimer">الأرقام المعروضة لأغراض توضيحية فقط.</div></div></div></div></section>
-
-<section class="section"><div class="wrap"><div class="center"><h2>مصمم ليخليك تركز على البيع</h2><p>أنت تجيب العميل — المنصة تساعدك في باقي الرحلة.</p></div><div class="trust"><div class="trustCard"><i>📦</i><b>بدون تخزين</b><span>لا تشتري مخزون قبل ما تبدأ البيع.</span></div><div class="trustCard"><i>⚡</i><b>ابدأ بسرعة</b><span>منتجات وأدوات جاهزة من أول يوم.</span></div><div class="trustCard"><i>📈</i><b>تابع أداءك</b><span>أرقام واضحة للطلبات والمبيعات والأرباح.</span></div><div class="trustCard"><i>🤝</i><b>دعم للمسوّقين</b><span>تجربة مبنية حول احتياجاتك.</span></div></div></div></section>
-
-<section class="section" style="padding-top:0"><div class="wrap"><div class="cta"><div><h2>جاهز تبدأ أول عملية بيع؟</h2><p>سجّل مجاناً، اختر أول منتج، وابدأ التسويق اليوم.</p></div><a class="btn l" href="/register">ابدأ كمسوّق الآن ↗</a></div></div></section>
 </main>
 
 <footer class="footer"><div class="wrap foot"><div>© 2026 Syria Commerce — منصة التجارة للمسوّقين</div><div class="footLinks"><a href="/products">المنتجات</a><a href="/marketer">أدوات التسويق</a><a href="/login">تسجيل الدخول</a><a href="/register">التسجيل</a></div></div></footer>
-</body></html>`,"Syria Commerce | منصة المسوقين");
+</body></html>`,"Syria Commerce | منصة المسوّقين");
     }
-    
-    
-    
-    
-    
-    
-    
+
     if (request.method === "GET" && url.pathname === "/products") return productsPage(env);
     if (request.method === "GET" && url.pathname === "/orders") return ordersPage(env);
     if (request.method === "GET" && url.pathname === "/commissions") return commissionsPage(env);
