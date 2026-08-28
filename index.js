@@ -151,6 +151,45 @@ async function deleteProduct(request, env) {
   return json({ok:true});
 }
 
+async function marketerProductsPage(env) {
+  const rows = await listProducts(getStore(env));
+  const products = rows.filter(p => p.status === "active");
+  const cards = products.map(p => `
+    <article class="product" data-name="${esc(p.name)}" data-category="${esc(p.category || "عام")}">
+      <div class="visual"><span class="tag">${esc(p.category || "منتج")}</span><div class="productIcon">✦</div><button class="heart" aria-label="حفظ المنتج">♡</button></div>
+      <div class="body">
+        <div class="meta"><span>${esc(p.sku)}</span><span>متاح ${Number(p.stock)}</span></div>
+        <h3>${esc(p.name)}</h3>
+        <p>${esc(p.description || "منتج جاهز للتسويق لجمهورك.")}</p>
+        <div class="money"><div><small>سعر البيع</small><strong>${Number(p.price).toFixed(2)} <i>ر.س</i></strong></div><div class="profit"><small>عمولتك</small><b>+${Number(p.commission).toFixed(2)} <i>ر.س</i></b></div></div>
+        <div class="actions"><a href="/product?id=${encodeURIComponent(p.id)}" class="more">التفاصيل</a><button onclick="startMarketing(${Number(p.id)})" class="market">سوّق المنتج ↗</button></div>
+      </div>
+    </article>`).join("");
+  const cats = [...new Set(products.map(p => p.category || "عام"))];
+  return htmlResponse(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>المنتجات | Syria Commerce</title><style>
+:root{--ink:#171414;--muted:#716762;--paper:#fbf8f5;--white:#fff;--line:#e9e1dc;--brand:#e54845;--soft:#f5e8e4}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Tahoma,sans-serif}a{text-decoration:none;color:inherit}.wrap{max-width:1220px;margin:auto;padding:0 22px}
+.top{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;position:sticky;top:0;z-index:30}.nav{display:flex;align-items:center;gap:30px}.brand{display:flex;align-items:center;gap:10px;font-weight:950;font-size:19px}.mark{width:39px;height:39px;border-radius:12px;background:var(--brand);color:#fff;display:grid;place-items:center}.brand small{display:block;color:#8a7b75;font-size:7px;letter-spacing:1.6px;margin-top:2px}.links{display:flex;gap:4px;flex:1}.links a{padding:10px 12px;border-radius:9px;font-size:13px;font-weight:800;color:#544942}.links a:hover,.links a.active{background:var(--soft);color:var(--brand)}.account{display:flex;gap:8px}.account a{padding:10px 13px;border:1px solid var(--line);border-radius:10px;font-size:12px;font-weight:900}.account .primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.hero{padding:66px 0 38px}.heroGrid{display:grid;grid-template-columns:1.25fr .75fr;gap:35px;align-items:end}.eyebrow{font-size:11px;font-weight:950;color:var(--brand);margin-bottom:13px}.hero h1{font-size:54px;line-height:1.04;letter-spacing:-2.4px;margin:0 0 13px}.hero p{font-size:16px;line-height:1.8;color:var(--muted);max-width:650px;margin:0}.heroNote{justify-self:end;text-align:left;direction:rtl;border-right:3px solid var(--brand);padding-right:18px}.heroNote strong{display:block;font-size:24px}.heroNote span{font-size:11px;color:var(--muted)}
+.toolbar{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:26px}.search{flex:1;position:relative}.search input{width:100%;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:0 43px 0 14px;font-size:13px;outline:none}.search input:focus{border-color:#c9aaa5}.search span{position:absolute;right:15px;top:12px;color:#93837c}.filter{height:44px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:0 13px;font-weight:800;color:#53453e}.count{font-size:11px;color:var(--muted);white-space:nowrap}.chips{display:flex;gap:6px;overflow:auto;padding-bottom:2px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:10px;font-weight:900;white-space:nowrap}.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:80px}.product{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:transform .2s,box-shadow .2s}.product:hover{transform:translateY(-3px);box-shadow:0 18px 45px rgba(23,20,20,.09)}.visual{height:245px;background:#f3ece7;position:relative;display:grid;place-items:center}.productIcon{width:112px;height:112px;border-radius:32px;background:#fff;display:grid;place-items:center;font-size:45px;color:var(--brand);box-shadow:0 15px 35px rgba(23,20,20,.08)}.tag{position:absolute;right:15px;top:15px;background:var(--ink);color:#fff;border-radius:999px;padding:7px 10px;font-size:9px;font-weight:900}.heart{position:absolute;left:15px;top:15px;width:35px;height:35px;border:1px solid var(--line);border-radius:50%;background:#fff;font-size:19px;cursor:pointer}.body{padding:18px}.meta{display:flex;justify-content:space-between;color:#9a8c85;font-size:9px}.product h3{font-size:18px;margin:12px 0 7px}.product p{font-size:11px;color:var(--muted);line-height:1.7;min-height:37px;margin:0}.money{display:flex;justify-content:space-between;align-items:end;border-top:1px solid var(--line);margin-top:17px;padding-top:14px}.money small{display:block;font-size:8px;color:#93847c;margin-bottom:4px}.money strong{font-size:17px}.money i{font-size:8px;font-style:normal;color:#81736d}.profit{text-align:left}.profit b{font-size:17px;color:var(--brand)}.actions{display:grid;grid-template-columns:.72fr 1.28fr;gap:7px;margin-top:14px}.more,.market{height:42px;border-radius:10px;display:grid;place-items:center;font-size:11px;font-weight:950}.more{border:1px solid var(--line);background:#fff}.market{border:0;background:var(--brand);color:#fff;cursor:pointer}.market:hover{filter:brightness(.95)}.empty{grid-column:1/-1;text-align:center;padding:70px;color:var(--muted);border:1px dashed var(--line);border-radius:20px;background:#fff}
+.bottom{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:10px}.bottomIn{display:flex;justify-content:space-between}.toast{position:fixed;bottom:22px;left:22px;background:var(--ink);color:#fff;padding:13px 17px;border-radius:12px;font-size:11px;opacity:0;transform:translateY(10px);transition:.2s;z-index:50}.toast.show{opacity:1;transform:none}
+@media(max-width:900px){.links{display:none}.heroGrid{grid-template-columns:1fr}.heroNote{justify-self:start;text-align:right}.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.top{height:64px}.account a:first-child{display:none}.hero{padding:45px 0 28px}.hero h1{font-size:40px}.hero p{font-size:14px}.toolbar{align-items:stretch;flex-wrap:wrap}.search{flex-basis:100%}.chips{order:3;width:100%}.grid{grid-template-columns:1fr;gap:13px}.visual{height:230px}.bottomIn{flex-direction:column;gap:10px}}
+</style></head><body>
+<header class="top"><div class="wrap nav"><a class="brand" href="/"><span class="mark">SC</span><span>Syria Commerce<small>SELL • TRACK • EARN</small></span></a><nav class="links"><a href="/">الرئيسية</a><a class="active" href="/products">المنتجات</a><a href="/marketer">كيف تربح؟</a><a href="/marketer">أدوات التسويق</a><a href="/login">لوحة المسوّق</a></nav><div class="account"><a href="/login">دخول</a><a class="primary" href="/register">ابدأ الآن</a></div></div></header>
+<main><section class="hero"><div class="wrap heroGrid"><div><div class="eyebrow">مكتبة المنتجات</div><h1>اختَر منتجك.<br>وخلي التسويق علينا.</h1><p>منتجات جاهزة للبيع، مع عمولتك واضحة من أول نظرة. ابحث، قارن، واختَر المنتج المناسب لجمهورك.</p></div><div class="heroNote"><strong>${products.length} منتجات</strong><span>متاحة الآن للمسوّقين</span></div></div></section>
+<section class="wrap"><div class="toolbar"><div class="search"><span>⌕</span><input id="search" placeholder="ابحث عن منتج..."></div><select class="filter" id="sort"><option value="featured">الأبرز</option><option value="profit">الأعلى عمولة</option><option value="price">الأقل سعراً</option></select><span class="count" id="count">${products.length} منتج</span></div><div class="chips" id="chips"><button class="chip active" data-cat="all">الكل</button>${cats.map(c=>`<button class="chip" data-cat="${esc(c)}">${esc(c)}</button>`).join("")}</div><div class="grid" id="grid">${cards || '<div class="empty">لا توجد منتجات متاحة حالياً.</div>'}</div></section></main>
+<footer class="bottom"><div class="wrap bottomIn"><span>© 2026 Syria Commerce — مساحة عمل للمسوّقين</span><span>منتجات • أدوات تسويق • أرباح</span></div></footer><div class="toast" id="toast">تم اختيار المنتج للتسويق ✓</div>
+<script>
+const grid=document.getElementById('grid'), search=document.getElementById('search'), sort=document.getElementById('sort'), count=document.getElementById('count'); let cat='all';
+function render(){const q=search.value.trim().toLowerCase();let items=[...grid.querySelectorAll('.product')];items.forEach(x=>{const ok=(!q||x.dataset.name.toLowerCase().includes(q))&&(cat==='all'||x.dataset.category===cat);x.style.display=ok?'':'none'});count.textContent=items.filter(x=>x.style.display!=='none').length+' منتج'}
+search.addEventListener('input',render);document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');cat=b.dataset.cat;render()}));
+function startMarketing(id){localStorage.setItem('sc_selected_product',String(id));const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>{t.classList.remove('show');location.href='/marketer'},900)}
+</script></body></html>`,`المنتجات | Syria Commerce`);
+}
+
 async function productsPage(env) {
   const rows = await listProducts(getStore(env));
   const cards = rows.map(p => `
@@ -1086,7 +1125,8 @@ export default {
 </main><footer class="footer"><div class="wrap foot"><div>© 2026 Syria Commerce</div><div class="footLinks"><a href="/products">المنتجات</a><a href="/login">تسجيل الدخول</a><a href="/register">التسجيل</a></div></div></footer>
 </body></html>`,"Syria Commerce | منصة المسوّقين");
     }
-    if (request.method === "GET" && url.pathname === "/products") return productsPage(env);
+    if (request.method === "GET" && url.pathname === "/products") return marketerProductsPage(env);
+    if (request.method === "GET" && url.pathname === "/admin/products") return productsPage(env);
     if (request.method === "GET" && url.pathname === "/orders") return ordersPage(env);
     if (request.method === "GET" && url.pathname === "/commissions") return commissionsPage(env);
     if (request.method === "GET" && url.pathname === "/customers") return customersPage(env);
