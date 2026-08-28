@@ -1167,28 +1167,40 @@ document.getElementById("orderForm").addEventListener("submit",async e=>{e.preve
 }
 
 
-function adminLivePage(stats) {
-  const demo=!stats.db;
-  const val=k=>demo?"—":String(stats[k]??0);
+function adminLivePage(db, stats) {
+  const n = x => db ? String(x ?? 0) : "—";
   return `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>لوحة الإدارة الحية | Syria Commerce</title>
+<title>Syria Commerce | الإدارة</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f6f8fb;color:#172033;font-family:Arial,sans-serif}.top{background:#111827;color:#fff;padding:20px}.wrap{max-width:1180px;margin:auto}.brand{font-size:25px;font-weight:800}.sub{opacity:.7;margin-top:5px}main{max-width:1180px;margin:24px auto;padding:0 16px}.status{display:inline-block;padding:8px 12px;border-radius:999px;background:${demo?"#fff7ed":"#ecfdf3"};color:${demo?"#9a3412":"#067647"};margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;box-shadow:0 5px 20px #00000008}.label{color:#667085;font-size:14px}.num{font-size:30px;font-weight:800;margin-top:8px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tabs button{border:0;border-radius:10px;padding:10px 14px;background:#111827;color:#fff;cursor:pointer}.tabs .refresh{background:#eef2ff;color:#111827} .panel{display:none}.panel.active{display:block}table{width:100%;border-collapse:collapse}th,td{padding:11px;border-bottom:1px solid #eee;text-align:right;white-space:nowrap}.muted{color:#667085}@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.grid{grid-template-columns:1fr}}
-</style></head><body><header class="top"><div class="wrap"><div class="brand">Syria Commerce</div><div class="sub">لوحة الإدارة — البيانات الحقيقية</div></div></header>
-<main><div class="status">${demo?"وضع تجريبي — اربط D1":"D1 متصل — البيانات الحقيقية مفعّلة ✓"}</div>
-<div class="grid"><div class="card"><div class="label">المسوقون</div><div class="num">${val("marketers")}</div></div><div class="card"><div class="label">المنتجات النشطة</div><div class="num">${val("products")}</div></div><div class="card"><div class="label">الطلبات</div><div class="num">${val("orders")}</div></div><div class="card"><div class="label">المبيعات المسلّمة</div><div class="num">${demo?"—":Number(stats.sales||0).toFixed(2)}</div></div></div>
-<div class="tabs"><button onclick="show('orders')">🧾 الطلبات</button><button onclick="show('products')">📦 المنتجات</button><button onclick="show('marketers')">👥 المسوقون</button><button class="refresh" onclick="location.reload()">↻ تحديث</button></div>
-<div id="orders" class="panel card"><h2>آخر الطلبات</h2><div id="ordersBox" class="muted">جاري التحميل...</div></div>
+*{box-sizing:border-box}body{margin:0;background:#f7f8fa;color:#16181d;font-family:Arial,sans-serif}
+header{background:#17191f;color:#fff;padding:22px}.wrap{max-width:1180px;margin:auto}.brand{font-size:26px;font-weight:800}.sub{opacity:.7;margin-top:5px}
+main{max-width:1180px;margin:24px auto;padding:0 16px}.notice{padding:12px 16px;border-radius:12px;background:#fff3cd;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:#fff;border:1px solid #e7e8eb;border-radius:16px;padding:20px;box-shadow:0 4px 18px #00000008}.label{color:#68707d;font-size:14px}.num{font-size:30px;font-weight:800;margin-top:8px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tabs button{border:0;border-radius:10px;padding:11px 15px;background:#17191f;color:#fff;cursor:pointer}.panel{display:none}.panel.active{display:block}
+.table{overflow:auto}table{width:100%;border-collapse:collapse;min-width:700px}th,td{padding:11px;border-bottom:1px solid #eee;text-align:right}.muted{color:#68707d}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.grid{grid-template-columns:1fr}}
+</style></head><body><header><div class="wrap"><div class="brand">Syria Commerce</div><div class="sub">لوحة الإدارة الحية</div></div></header>
+<main><div class="notice">${db?"D1 متصل — البيانات الحقيقية مفعّلة ✓":"D1 غير مربوط — الصفحة تعمل لكن بدون بيانات حقيقية"}</div>
+<div class="grid">
+<div class="card"><div class="label">المسوّقون</div><div class="num">${n(stats.marketers)}</div></div>
+<div class="card"><div class="label">المنتجات النشطة</div><div class="num">${n(stats.products)}</div></div>
+<div class="card"><div class="label">الطلبات</div><div class="num">${n(stats.orders)}</div></div>
+<div class="card"><div class="label">المبيعات المسلّمة</div><div class="num">${db?Number(stats.sales||0).toFixed(2):"—"}</div></div>
+</div>
+<div class="tabs"><button onclick="show('orders')">الطلبات</button><button onclick="show('products')">المنتجات</button><button onclick="show('marketers')">المسوّقون</button><button onclick="location.reload()">تحديث</button></div>
+<div id="orders" class="panel card"><h2>الطلبات</h2><div id="ordersBox" class="muted">جاري التحميل...</div></div>
 <div id="products" class="panel card"><h2>المنتجات</h2><div id="productsBox" class="muted">جاري التحميل...</div></div>
-<div id="marketers" class="panel card"><h2>المسوقون</h2><div id="marketersBox" class="muted">جاري التحميل...</div></div></main>
+<div id="marketers" class="panel card"><h2>المسوّقون</h2><div id="marketersBox" class="muted">جاري التحميل...</div></div>
+</main>
 <script>
-function show(id){document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");load(id)}
-function esc(v){return String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
-async function load(id){if(${demo})return;const r=await fetch("/api/admin/live/"+id),d=await r.json(),rows=d[id]||[];
-if(id==="orders")document.getElementById("ordersBox").innerHTML='<div style="overflow:auto"><table><tr><th>الطلب</th><th>العميل</th><th>المنتج</th><th>المسوق</th><th>الإجمالي</th><th>الحالة</th></tr>'+rows.map(x=>'<tr><td>'+esc(x.order_no)+'</td><td>'+esc(x.customer_name)+'</td><td>'+esc(x.product_name)+'</td><td>'+esc(x.marketer_code)+'</td><td>'+Number(x.total||0).toFixed(2)+'</td><td>'+esc(x.status)+'</td></tr>').join("")+'</table></div>';
-if(id==="products")document.getElementById("productsBox").innerHTML='<div style="overflow:auto"><table><tr><th>الاسم</th><th>SKU</th><th>السعر</th><th>العمولة</th><th>المخزون</th><th>الحالة</th></tr>'+rows.map(x=>'<tr><td>'+esc(x.name)+'</td><td>'+esc(x.sku)+'</td><td>'+Number(x.price||0).toFixed(2)+'</td><td>'+Number(x.commission||0).toFixed(2)+'</td><td>'+x.stock+'</td><td>'+esc(x.status)+'</td></tr>').join("")+'</table></div>';
-if(id==="marketers")document.getElementById("marketersBox").innerHTML='<div style="overflow:auto"><table><tr><th>الاسم</th><th>الكود</th><th>الهاتف</th><th>المحافظة</th></tr>'+rows.map(x=>'<tr><td>'+esc(x.name)+'</td><td>'+esc(x.code)+'</td><td>'+esc(x.phone)+'</td><td>'+esc(x.governorate)+'</td></tr>').join("")+'</table></div>'}
-show("orders");
+const DB=${db?"true":"false"};
+function show(id){document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');if(DB)load(id)}
+function e(v){return String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+async function load(id){const r=await fetch('/api/admin/live/'+id),d=await r.json(),a=d[id]||[];
+if(id==='orders')document.getElementById('ordersBox').innerHTML='<div class="table"><table><tr><th>الطلب</th><th>العميل</th><th>المنتج</th><th>المسوق</th><th>الإجمالي</th><th>الحالة</th></tr>'+a.map(x=>'<tr><td>'+e(x.order_no)+'</td><td>'+e(x.customer_name)+'</td><td>'+e(x.product_name)+'</td><td>'+e(x.marketer_code)+'</td><td>'+Number(x.total||0).toFixed(2)+'</td><td>'+e(x.status)+'</td></tr>').join('')+'</table></div>';
+if(id==='products')document.getElementById('productsBox').innerHTML='<div class="table"><table><tr><th>الاسم</th><th>SKU</th><th>السعر</th><th>العمولة</th><th>المخزون</th><th>الحالة</th></tr>'+a.map(x=>'<tr><td>'+e(x.name)+'</td><td>'+e(x.sku)+'</td><td>'+Number(x.price||0).toFixed(2)+'</td><td>'+Number(x.commission||0).toFixed(2)+'</td><td>'+e(x.stock)+'</td><td>'+e(x.status)+'</td></tr>').join('')+'</table></div>';
+if(id==='marketers')document.getElementById('marketersBox').innerHTML='<div class="table"><table><tr><th>الاسم</th><th>الكود</th><th>الهاتف</th><th>المحافظة</th></tr>'+a.map(x=>'<tr><td>'+e(x.name)+'</td><td>'+e(x.code)+'</td><td>'+e(x.phone)+'</td><td>'+e(x.governorate)+'</td></tr>').join('')+'</table></div>'}
+show('orders');
 </script></body></html>`;
 }
 
@@ -1408,7 +1420,40 @@ if (request.method === "GET" && url.pathname === "/dashboard") return dashboard(
     }
 
 
-    return json({ok:false,error:"Not Found"},404);
+
+    if (request.method === "GET" && url.pathname === "/admin-live") {
+      const db = !!(env && env.DB);
+      let stats = {marketers:0,products:0,orders:0,sales:0};
+      if (db) {
+        const [m,p,o,sales] = await Promise.all([
+          env.DB.prepare(`SELECT COUNT(*) AS n FROM marketers`).first(),
+          env.DB.prepare(`SELECT COUNT(*) AS n FROM products WHERE status='active'`).first(),
+          env.DB.prepare(`SELECT COUNT(*) AS n FROM orders`).first(),
+          env.DB.prepare(`SELECT COALESCE(SUM(total),0) AS n FROM orders WHERE status='delivered'`).first()
+        ]);
+        stats={marketers:Number(m?.n||0),products:Number(p?.n||0),orders:Number(o?.n||0),sales:Number(sales?.n||0)};
+      }
+      return htmlResponse(adminLivePage(db,stats), "Syria Commerce | الإدارة");
+    }
+
+    if (request.method === "GET" && url.pathname === "/api/admin/live/orders") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const r=await env.DB.prepare(`SELECT id,order_no,product_name,customer_name,customer_phone,governorate,marketer_code,quantity,total,commission,status,created_at FROM orders ORDER BY id DESC LIMIT 200`).all();
+      return jsonResponse({ok:true,orders:r.results||[]});
+    }
+
+    if (request.method === "GET" && url.pathname === "/api/admin/live/products") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const r=await env.DB.prepare(`SELECT id,name,sku,price,commission,stock,category,status,created_at FROM products ORDER BY id DESC LIMIT 200`).all();
+      return jsonResponse({ok:true,products:r.results||[]});
+    }
+
+    if (request.method === "GET" && url.pathname === "/api/admin/live/marketers") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const r=await env.DB.prepare(`SELECT id,name,phone,governorate,code,created_at FROM marketers ORDER BY id DESC LIMIT 200`).all();
+      return jsonResponse({ok:true,marketers:r.results||[]});
+    }
+
     if (request.method === "GET" && url.pathname === "/account") {
       return htmlResponse(`<!doctype html>
 <html lang="ar" dir="rtl">
@@ -1856,34 +1901,6 @@ ${mode==="register"?'<div class="field"><label>تأكيد كلمة المرور<
     }
 
 
-
-    if (url.pathname === "/admin-live" && request.method === "GET") {
-      if (!env || !env.DB) return new Response(adminLivePage({db:false}),{headers:{"content-type":"text/html; charset=utf-8"}});
-      const [m,p,o,d,pending] = await Promise.all([
-        env.DB.prepare(`SELECT COUNT(*) AS n FROM marketers`).first(),
-        env.DB.prepare(`SELECT COUNT(*) AS n FROM products WHERE status='active'`).first(),
-        env.DB.prepare(`SELECT COUNT(*) AS n FROM orders`).first(),
-        env.DB.prepare(`SELECT COALESCE(SUM(total),0) AS n FROM orders WHERE status='delivered'`).first(),
-        env.DB.prepare(`SELECT COALESCE(SUM(commission),0) AS n FROM orders WHERE status NOT IN ('delivered','cancelled')`).first()
-      ]);
-      return new Response(adminLivePage({db:true,marketers:m?.n||0,products:p?.n||0,orders:o?.n||0,sales:d?.n||0,pending:pending?.n||0}),{headers:{"content-type":"text/html; charset=utf-8"}});
-    }
-
-    if (url.pathname === "/api/admin/live/orders" && request.method === "GET") {
-      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
-      const r=await env.DB.prepare(`SELECT id,order_no,product_name,customer_name,customer_phone,governorate,marketer_code,quantity,total,commission,status,created_at FROM orders ORDER BY id DESC LIMIT 200`).all();
-      return jsonResponse({ok:true,orders:r.results||[]});
-    }
-    if (url.pathname === "/api/admin/live/products" && request.method === "GET") {
-      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
-      const r=await env.DB.prepare(`SELECT id,name,sku,price,commission,stock,category,status,created_at FROM products ORDER BY id DESC LIMIT 200`).all();
-      return jsonResponse({ok:true,products:r.results||[]});
-    }
-    if (url.pathname === "/api/admin/live/marketers" && request.method === "GET") {
-      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
-      const r=await env.DB.prepare(`SELECT id,name,phone,governorate,code,created_at FROM marketers ORDER BY id DESC LIMIT 200`).all();
-      return jsonResponse({ok:true,marketers:r.results||[]});
-    }
-
+    return jsonResponse({ok:false,error:"Not Found"},404);
   }
 };
