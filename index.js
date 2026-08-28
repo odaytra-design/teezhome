@@ -190,6 +190,44 @@ function startMarketing(id){localStorage.setItem('sc_selected_product',String(id
 </script></body></html>`,`المنتجات | Syria Commerce`);
 }
 
+
+async function cartPage(env) {
+  const products = (await listProducts(getStore(env))).filter(p => p.status === "active");
+  const productData = products.map(p => ({id:Number(p.id),name:p.name,price:Number(p.price),commission:Number(p.commission),stock:Number(p.stock),category:p.category||"منتج"}));
+  return htmlResponse(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>سلة التسويق | Syria Commerce</title><style>
+:root{--ink:#171414;--muted:#716762;--paper:#fbf8f5;--white:#fff;--line:#e9e1dc;--brand:#e54845;--soft:#f5e8e4;--green:#14755b}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Tahoma,sans-serif}a{text-decoration:none;color:inherit}.wrap{max-width:1180px;margin:auto;padding:0 22px}
+.top{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;position:sticky;top:0;z-index:20}.nav{display:flex;align-items:center;gap:28px}.brand{display:flex;align-items:center;gap:10px;font-weight:950;font-size:19px;flex:1}.mark{width:39px;height:39px;border-radius:12px;background:var(--brand);color:#fff;display:grid;place-items:center}.brand small{display:block;color:#8a7b75;font-size:7px;letter-spacing:1.6px;margin-top:2px}.back{font-size:12px;font-weight:900;color:#5a4b44}.account{display:flex;gap:8px}.account a{padding:10px 13px;border:1px solid var(--line);border-radius:10px;font-size:12px;font-weight:900}.account .primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.hero{padding:55px 0 25px}.eyebrow{font-size:11px;font-weight:950;color:var(--brand);margin-bottom:12px}.hero h1{font-size:47px;letter-spacing:-2px;margin:0 0 10px}.hero p{font-size:14px;color:var(--muted);margin:0;line-height:1.8}
+.layout{display:grid;grid-template-columns:1fr 350px;gap:22px;padding-bottom:80px}.panel{background:#fff;border:1px solid var(--line);border-radius:22px}.items{padding:8px 20px}.item{display:grid;grid-template-columns:82px 1fr auto;gap:15px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}.visual{width:82px;height:82px;background:#f3ece7;border-radius:17px;display:grid;place-items:center;color:var(--brand);font-size:30px}.name{font-size:15px;font-weight:950;margin-bottom:7px}.meta{font-size:10px;color:#978983}.price{font-size:14px;font-weight:950;margin-top:9px}.commission{display:inline-flex;background:var(--soft);color:var(--brand);padding:5px 8px;border-radius:7px;font-size:9px;font-weight:950;margin-top:7px}.qty{display:flex;align-items:center;gap:7px;margin-top:10px}.qty button{width:28px;height:28px;border:1px solid var(--line);background:#fff;border-radius:8px;font-weight:950;cursor:pointer}.qty span{min-width:20px;text-align:center;font-size:11px;font-weight:900}.remove{border:0;background:none;color:#a3948d;font-size:10px;cursor:pointer;margin-top:9px}.side{padding:23px;position:sticky;top:95px;height:max-content}.side h2{font-size:18px;margin:0 0 20px}.line{display:flex;justify-content:space-between;padding:11px 0;font-size:12px;color:#66574f}.line.total{border-top:1px solid var(--line);margin-top:7px;padding-top:17px;color:var(--ink);font-weight:950;font-size:17px}.profit{margin:16px 0;background:#f5f1ee;border-radius:13px;padding:14px}.profit small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.profit b{color:var(--green);font-size:16px}.checkout{width:100%;border:0;background:var(--brand);color:#fff;border-radius:12px;height:48px;font-weight:950;cursor:pointer;font-size:13px;margin-top:6px}.note{font-size:9px;line-height:1.8;color:#8b7d76;margin:13px 0 0}.empty{padding:70px 20px;text-align:center}.emptyIcon{font-size:42px;margin-bottom:12px}.empty h2{font-size:20px;margin:0 0 8px}.empty p{color:var(--muted);font-size:12px;margin:0 0 20px}.btn{display:inline-flex;justify-content:center;align-items:center;padding:12px 18px;border-radius:10px;background:var(--ink);color:#fff;font-size:12px;font-weight:950}
+.source{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:15px;font-size:10px;color:var(--muted)}.source b{color:var(--ink)}.dot{width:8px;height:8px;border-radius:50%;background:var(--brand)}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.side{position:static}.hero h1{font-size:38px}.item{grid-template-columns:64px 1fr}.visual{width:64px;height:64px}.item>div:last-child{grid-column:2}}
+@media(max-width:520px){.account a:first-child{display:none}.top{height:66px}.nav{gap:10px}.brand{font-size:16px}.hero{padding-top:38px}.items{padding:0 14px}.item{gap:11px}.price{font-size:13px}}
+</style></head><body>
+<header class="top"><div class="wrap nav"><a class="brand" href="/"><span class="mark">SC</span><span>Syria Commerce<small>SELL • TRACK • EARN</small></span></a><a class="back" href="/products">← المنتجات</a><div class="account"><a href="/login">دخول</a><a class="primary" href="/marketer">مساحة المسوّق</a></div></div></header>
+<main><section class="hero"><div class="wrap"><div class="eyebrow">سلة التسويق</div><h1>رتّب طلبك، ثم خلّينا نكمل.</h1><p>السلة هنا للمسوّق. أضف المنتجات التي تريد بيعها ثم انتقل لبيانات العميل وإرسال الطلب.</p><div class="source"><span class="dot"></span><span>مصدر الطلب: <b>المسوّق</b> — عند إنشاء الطلب يتم حفظ كود الإحالة معه.</span></div></div></section>
+<section class="wrap layout"><div class="panel"><div class="items" id="items"></div></div><aside class="panel side"><h2>ملخص الطلب</h2><div class="line"><span>عدد المنتجات</span><b id="count">0</b></div><div class="line"><span>قيمة المنتجات</span><b id="subtotal">0.00</b></div><div class="line"><span>الشحن</span><b id="shipping">يُحدد عند الطلب</b></div><div class="line total"><span>الإجمالي</span><b id="total">0.00</b></div><div class="profit"><small>عمولتك المتوقعة من السلة</small><b id="commission">+0.00</b></div><button class="checkout" id="checkout">متابعة بيانات العميل →</button><p class="note">لن يتم إنشاء طلب الآن. الخطوة التالية هي إدخال بيانات العميل وربط الطلب بكود المسوّق.</p></aside></section></main>
+<script>
+const products=${JSON.stringify(productData)};
+let cart=JSON.parse(localStorage.getItem('sc_cart')||'[]');
+function data(){return cart.map(x=>{const p=products.find(y=>y.id===Number(x.id));return p?{...p,qty:Math.max(1,Number(x.qty||1))}:null}).filter(Boolean)}
+function save(){localStorage.setItem('sc_cart',JSON.stringify(cart));render()}
+function render(){
+ const items=document.getElementById('items'), rows=data();
+ if(!rows.length){items.innerHTML='<div class="empty"><div class="emptyIcon">🛒</div><h2>السلة فاضية</h2><p>اختَر منتجاً من مكتبة المنتجات وأضفه إلى سلة التسويق.</p><a class="btn" href="/products">استكشف المنتجات</a></div>';document.getElementById('count').textContent='0';document.getElementById('subtotal').textContent='0.00';document.getElementById('total').textContent='0.00';document.getElementById('commission').textContent='+0.00';return}
+ items.innerHTML=rows.map(p=>'<article class="item"><div class="visual">✦</div><div><div class="name">'+esc(p.name)+'</div><div class="meta">'+esc(p.category)+' • متوفر '+p.stock+'</div><div class="price">'+p.price.toFixed(2)+' ر.س</div><span class="commission">عمولتك +'+p.commission.toFixed(2)+' ر.س / قطعة</span><div class="qty"><button onclick="change('+p.id+',-1)">−</button><span>'+p.qty+'</span><button onclick="change('+p.id+',1)">+</button></div><button class="remove" onclick="removeItem('+p.id+')">حذف من السلة</button></div></article>').join('');
+ const subtotal=rows.reduce((s,p)=>s+p.price*p.qty,0), commission=rows.reduce((s,p)=>s+p.commission*p.qty,0), count=rows.reduce((s,p)=>s+p.qty,0);
+ document.getElementById('count').textContent=count;document.getElementById('subtotal').textContent=subtotal.toFixed(2);document.getElementById('total').textContent=subtotal.toFixed(2);document.getElementById('commission').textContent='+'+commission.toFixed(2);
+}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function change(id,d){const x=cart.find(x=>Number(x.id)===id);if(x){x.qty=Math.max(1,Number(x.qty||1)+d);save()}}
+function removeItem(id){cart=cart.filter(x=>Number(x.id)!==id);save()}
+document.getElementById('checkout').onclick=()=>{if(!data().length)return;localStorage.setItem('sc_checkout_cart',JSON.stringify(data().map(p=>({id:p.id,qty:p.qty}))));location.href='/checkout'}
+render();
+</script></body></html>`,`السلة | Syria Commerce`);
+}
+
 async function productDetailsPage(env, id) {
   const rows = await listProducts(getStore(env));
   const product = rows.find(p => Number(p.id) === Number(id)) || rows.find(p => p.status === "active");
@@ -1100,8 +1138,45 @@ document.querySelector("#f").addEventListener("submit",async e=>{
 </script>`, "لوحة المسوقين");
 }
 
+
+async function checkoutPage(env) {
+  const products = await listProducts(getStore(env));
+  const catalog = products.map(p => ({id:p.id,name:p.name,price:Number(p.price)||0,commission:Number(p.commission)||0,stock:Number(p.stock)||0}));
+  return htmlResponse(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>إتمام الطلب | Syria Commerce</title>
+<style>
+:root{--brand:#c9363d;--ink:#151515;--muted:#746d69;--paper:#faf9f7;--line:#e8e3df;--soft:#f5e8e6;--white:#fff}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans Arabic","IBM Plex Sans Arabic",Tahoma,Arial,sans-serif}a{text-decoration:none;color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 22px}.top{height:74px;background:var(--brand);color:#fff}.nav{height:100%;display:flex;align-items:center;justify-content:space-between}.logo{display:flex;align-items:center;gap:10px;font-weight:950}.mark{width:38px;height:38px;border-radius:11px;background:#fff;color:var(--brand);display:grid;place-items:center;font-size:10px}.back{font-size:11px;font-weight:800;opacity:.95}.page{padding:48px 0 70px}.eyebrow{font-size:9px;color:var(--brand);font-weight:950}.title{font-size:38px;letter-spacing:-1.2px;margin:7px 0}.intro{font-size:12px;color:var(--muted);margin:0 0 28px}.layout{display:grid;grid-template-columns:1fr .62fr;gap:16px;align-items:start}.box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:25px}.box h2{font-size:18px;margin:0 0 5px}.box .sub{font-size:10px;color:var(--muted);margin:0 0 20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font-size:10px;font-weight:900}input,select,textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;padding:12px;font:inherit;font-size:11px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--soft)}textarea{min-height:82px;resize:vertical}.ref{background:var(--soft);border:1px solid #ead1ce;border-radius:12px;padding:13px;margin-bottom:18px}.ref b{font-size:10px}.ref p{margin:4px 0 0;font-size:9px;color:var(--muted);line-height:1.7}.summary{position:sticky;top:20px}.items{border-top:1px solid var(--line);margin-top:15px}.item{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}.itemName{font-size:10px;font-weight:900}.itemMeta{font-size:8px;color:var(--muted);margin-top:4px}.itemPrice{text-align:left;font-size:10px;font-weight:950;white-space:nowrap}.totals{padding-top:14px}.totalRow{display:flex;justify-content:space-between;font-size:10px;margin:10px 0}.totalRow strong{font-size:17px}.commission{margin-top:13px;background:var(--ink);color:#fff;border-radius:13px;padding:13px;display:flex;justify-content:space-between;align-items:center}.commission span{font-size:9px;color:#d7d0cc}.commission b{color:#fff;font-size:16px}.btn{width:100%;border:0;border-radius:11px;padding:14px;background:var(--brand);color:#fff;font-weight:950;font-size:11px;cursor:pointer;margin-top:16px}.note{font-size:8px;color:var(--muted);line-height:1.7;margin-top:10px;text-align:center}.status{display:none;margin-top:13px;padding:12px;border-radius:11px;font-size:10px;background:var(--soft);color:var(--ink)}.empty{padding:20px 0;color:var(--muted);font-size:10px;text-align:center}.success{display:none;text-align:center;padding:35px 15px}.success .check{width:58px;height:58px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;margin:0 auto 15px;font-size:24px}.success h2{font-size:24px;margin:0 0 7px}.success p{font-size:10px;color:var(--muted);line-height:1.8}.success a{display:inline-flex;margin-top:8px;padding:11px 17px;border-radius:10px;background:var(--ink);color:#fff;font-size:10px;font-weight:900}@media(max-width:800px){.layout{grid-template-columns:1fr}.summary{position:static}.title{font-size:31px}}@media(max-width:520px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.box{padding:19px}.page{padding-top:35px}}
+</style></head><body>
+<header class="top"><div class="wrap nav"><a class="logo" href="/"><span class="mark">SC</span><span>Syria Commerce</span></a><a class="back" href="/cart">← العودة للسلة</a></div></header>
+<main class="page"><div class="wrap"><div class="eyebrow">CHECKOUT / إنشاء الطلب</div><h1 class="title">أكمل بيانات العميل</h1><p class="intro">أدخل بيانات العميل حتى نجهّز الطلب ونحافظ على نسبة الإحالة والعمولة للمسوّق.</p>
+<div id="checkoutLayout" class="layout"><section class="box"><div class="ref"><b>🔗 الطلب مرتبط بالمسوّق</b><p id="refText">سيتم استخدام كود الإحالة الموجود في الرابط أو الكود المحفوظ في السلة.</p></div><h2>بيانات العميل</h2><p class="sub">هذه البيانات تستخدم لتنفيذ الطلب والتواصل مع العميل.</p><form id="orderForm"><div class="grid"><div class="field"><label>اسم العميل *</label><input id="customer_name" required placeholder="الاسم الكامل"></div><div class="field"><label>رقم الهاتف *</label><input id="customer_phone" required inputmode="tel" placeholder="07XXXXXXXX"></div><div class="field"><label>المحافظة *</label><select id="governorate" required><option value="">اختر المحافظة</option><option>دمشق</option><option>ريف دمشق</option><option>حلب</option><option>حمص</option><option>حماة</option><option>اللاذقية</option><option>طرطوس</option><option>إدلب</option><option>درعا</option><option>السويداء</option><option>القنيطرة</option><option>دير الزور</option><option>الرقة</option><option>الحسكة</option></select></div><div class="field"><label>المنطقة / المدينة</label><input id="city" placeholder="المنطقة"></div><div class="field full"><label>العنوان بالتفصيل</label><input id="address" placeholder="الحي، الشارع، أقرب نقطة دالة"></div><div class="field full"><label>ملاحظات</label><textarea id="notes" placeholder="أي ملاحظات خاصة بالطلب"></textarea></div></div><button class="btn" id="submitBtn">تأكيد وإنشاء الطلب ↗</button><div class="status" id="status"></div><div class="note">بإتمام الطلب سيتم ربطه بكود المسوّق الموجود في الإحالة. الدفع والتنفيذ الفعلي يُفعلان مع الربط النهائي بالنظام.</div></form></section>
+<aside class="box summary"><h2>ملخص الطلب</h2><p class="sub">راجع المنتجات والعمولة قبل التأكيد.</p><div id="items" class="items"></div><div class="totals"><div class="totalRow"><span>إجمالي المنتجات</span><b id="total">0 SYP</b></div><div class="totalRow"><span>الشحن</span><span>يحدد حسب التنفيذ</span></div><div class="totalRow"><strong>الإجمالي</strong><strong id="grand">0 SYP</strong></div><div class="commission"><span>عمولتك المتوقعة</span><b id="commission">0 SYP</b></div></div></aside></div>
+<div id="success" class="box success"><div class="check">✓</div><h2>تم إنشاء الطلب</h2><p id="successText">تم تسجيل الطلب بنجاح وربطه بالمسوّق.</p><a href="/products">العودة للمنتجات</a></div>
+</div></main><script>
+const CATALOG=${JSON.stringify(catalog)};
+const qs=new URLSearchParams(location.search);
+const ref=qs.get("ref")||localStorage.getItem("marketer_code")||localStorage.getItem("referral_code")||"";
+if(ref) document.getElementById("refText").textContent="كود الإحالة: "+ref+" — سيتم ربط الطلب بهذا المسوّق.";
+let cart=[];try{cart=JSON.parse(localStorage.getItem("sc_cart")||"[]")}catch(e){cart=[]}
+function norm(){return cart.map(x=>{const p=CATALOG.find(y=>Number(y.id)===Number(x.id));return p?{...p,qty:Math.max(1,Number(x.qty||x.quantity||1))}:null}).filter(Boolean)}
+cart=norm();
+const fmt=n=>Number(n||0).toLocaleString("en-US")+" SYP";
+function render(){const el=document.getElementById("items");if(!cart.length){el.innerHTML='<div class="empty">السلة فارغة. ارجع للمنتجات وأضف منتجاً أولاً.</div>';document.getElementById("submitBtn").disabled=true;document.getElementById("submitBtn").style.opacity=.5;return}let total=0,com=0;el.innerHTML=cart.map(x=>{total+=x.price*x.qty;com+=x.commission*x.qty;return '<div class="item"><div><div class="itemName">'+x.name+'</div><div class="itemMeta">الكمية: '+x.qty+' × '+fmt(x.price)+'</div></div><div class="itemPrice">'+fmt(x.price*x.qty)+'</div></div>'}).join('');document.getElementById("total").textContent=fmt(total);document.getElementById("grand").textContent=fmt(total);document.getElementById("commission").textContent=fmt(com)}
+render();
+document.getElementById("orderForm").addEventListener("submit",async e=>{e.preventDefault();if(!cart.length)return;const btn=document.getElementById("submitBtn"),status=document.getElementById("status");if(!ref){status.style.display="block";status.textContent="لا يمكن إنشاء الطلب بدون كود مسوّق أو رابط إحالة.";return}btn.disabled=true;btn.textContent="جارٍ إنشاء الطلب…";const base={customer_name:document.getElementById("customer_name").value.trim(),customer_phone:document.getElementById("customer_phone").value.trim(),governorate:document.getElementById("governorate").value,marketer_code:ref};try{const made=[];for(const x of cart){const r=await fetch("/api/orders",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({...base,product_id:x.id,quantity:x.qty})});const d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||"تعذر إنشاء الطلب");made.push(d.order)}localStorage.removeItem("sc_cart");document.getElementById("checkoutLayout").style.display="none";document.getElementById("success").style.display="block";document.getElementById("successText").textContent="تم إنشاء "+made.length+" طلب وربطها بكود المسوّق "+ref+"."}catch(err){status.style.display="block";status.textContent=err.message;btn.disabled=false;btn.textContent="تأكيد وإنشاء الطلب ↗"}});
+</script></body></html>` , "إتمام الطلب | Syria Commerce");
+}
+
 export default {
   async fetch(request, env) {
+
+    function jsonResponse(data, status=200) {
+      return new Response(JSON.stringify(data), {
+        status,
+        headers: {"content-type":"application/json; charset=utf-8"}
+      });
+    }
+
+
     const url = new URL(request.url);
     if (request.method === "GET" && url.pathname === "/") {
       return htmlResponse(`<!doctype html>
@@ -1161,7 +1236,9 @@ export default {
 </main><footer class="footer"><div class="wrap foot"><div>© 2026 Syria Commerce</div><div class="footLinks"><a href="/products">المنتجات</a><a href="/login">تسجيل الدخول</a><a href="/register">التسجيل</a></div></div></footer>
 </body></html>`,"Syria Commerce | منصة المسوّقين");
     }
+    if (request.method === "GET" && url.pathname === "/checkout") return checkoutPage(env);
     if (request.method === "GET" && url.pathname === "/product") return productDetailsPage(env, url.searchParams.get("id"));
+    if (request.method === "GET" && url.pathname === "/cart") return cartPage(env);
     if (request.method === "GET" && url.pathname === "/products") return marketerProductsPage(env);
     if (request.method === "GET" && url.pathname === "/admin/products") return productsPage(env);
     if (request.method === "GET" && url.pathname === "/orders") return ordersPage(env);
@@ -1192,4 +1269,200 @@ if (request.method === "GET" && url.pathname === "/dashboard") return dashboard(
     if (request.method === "POST" && url.pathname === "/api/marketers") return register(request,env);
     return json({ok:false,error:"Not Found"},404);
   }
+    if (request.method === "GET" && url.pathname === "/account") {
+      return htmlResponse(`<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>حسابي | Syria Commerce</title>
+<style>
+:root{--ink:#171414;--paper:#fbf8f5;--white:#fff;--brand:#e54845;--soft:#f5e7e2;--line:#e9e1dc;--muted:#756a65}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Tahoma,sans-serif}
+.wrap{max-width:1180px;margin:auto;padding:0 22px}a{text-decoration:none;color:inherit}
+.nav{height:74px;background:#fff;border-bottom:1px solid var(--line)}.navin{height:100%;display:flex;align-items:center;gap:28px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:950;font-size:19px}.logo i{font-style:normal;background:var(--brand);color:#fff;border-radius:11px;padding:11px 12px}
+.links{display:flex;gap:18px;flex:1}.links a{font-size:12px;font-weight:800;color:#554b47}.links a:hover{color:var(--brand)}
+.btn{border:0;border-radius:11px;padding:12px 17px;font-weight:900;cursor:pointer}.brand{background:var(--brand);color:#fff}.dark{background:var(--ink);color:#fff}.light{background:#fff;border:1px solid var(--line)}
+.hero{padding:55px 0 25px}.eyebrow{font-size:11px;color:var(--brand);font-weight:950}.hero h1{font-size:42px;letter-spacing:-1.4px;margin:7px 0}.hero p{color:var(--muted);font-size:14px;margin:0}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:16px;padding:20px 0 70px}
+.side,.panel{background:#fff;border:1px solid var(--line);border-radius:20px}.side{padding:18px;height:max-content}.user{display:flex;gap:12px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.avatar{width:50px;height:50px;border-radius:15px;background:var(--soft);display:grid;place-items:center;font-weight:950;color:var(--brand)}
+.user b{display:block;font-size:13px}.user span{font-size:10px;color:var(--muted)}
+.menu{padding-top:10px}.menu a{display:block;padding:12px;border-radius:10px;font-size:12px;font-weight:800;color:#625852}.menu a.active{background:var(--soft);color:var(--brand)}
+.panel{padding:22px}.panelhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.panel h2{font-size:19px;margin:0}.panelhead span{font-size:10px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:18px}.stat{border:1px solid var(--line);border-radius:14px;padding:16px}.stat small{display:block;color:var(--muted);font-size:9px;margin-bottom:8px}.stat b{font-size:21px}
+.order{border-top:1px solid var(--line);padding:17px 0;display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:15px}.order:first-of-type{border-top:0}.order b{font-size:12px}.order span{display:block;font-size:10px;color:var(--muted);margin-top:5px}.status{font-size:9px;font-weight:900;background:#f1eee9;padding:7px 9px;border-radius:999px}.status.live{background:var(--soft);color:var(--brand)}.price{font-size:12px;font-weight:950}
+.notice{margin-top:16px;background:var(--ink);color:#fff;padding:17px;border-radius:15px;font-size:11px;line-height:1.7}.notice b{color:#fff}
+@media(max-width:800px){.links{display:none}.layout{grid-template-columns:1fr}.side{order:2}.stats{grid-template-columns:1fr 1fr}.order{grid-template-columns:1fr auto}.price{grid-column:1}.hero h1{font-size:34px}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap navin">
+<a class="logo" href="/"><i>SC</i><span>Syria Commerce</span></a>
+<nav class="links"><a href="/">الرئيسية</a><a href="/products">المنتجات</a><a href="/cart">السلة</a><a href="/marketer">للمسوّقين</a></nav>
+<a class="btn brand" href="/products">تسوق الآن</a>
+</div></header>
+
+<main class="wrap">
+<section class="hero"><div class="eyebrow">مساحتك الشخصية</div><h1>مرحباً بك في حسابك</h1><p>تابع طلباتك وبياناتك من مكان واحد.</p></section>
+<section class="layout">
+<aside class="side">
+<div class="user"><div class="avatar">SC</div><div><b>حساب العميل</b><span>عضو في Syria Commerce</span></div></div>
+<nav class="menu">
+<a class="active" href="/account">نظرة عامة</a>
+<a href="/account/orders">طلباتي</a>
+<a href="/account/profile">بياناتي</a>
+<a href="/account/addresses">عناويني</a>
+<a href="/products">تصفح المنتجات</a>
+</nav>
+</aside>
+
+<section class="panel">
+<div class="panelhead"><h2>ملخص الحساب</h2><span>آخر تحديث تلقائي</span></div>
+<div class="stats">
+<div class="stat"><small>إجمالي الطلبات</small><b>8</b></div>
+<div class="stat"><small>طلبات قيد التنفيذ</small><b>2</b></div>
+<div class="stat"><small>طلبات مكتملة</small><b>6</b></div>
+</div>
+
+<div class="panelhead"><h2>آخر الطلبات</h2><span>عرض الكل</span></div>
+<div class="order"><div><b>#SC-10482</b><span>3 منتجات · 28 أغسطس 2026</span></div><span class="status live">قيد التجهيز</span><div class="price">185,000 SYP</div></div>
+<div class="order"><div><b>#SC-10391</b><span>منتجان · 22 أغسطس 2026</span></div><span class="status">تم التسليم</span><div class="price">120,000 SYP</div></div>
+<div class="order"><div><b>#SC-10277</b><span>منتج واحد · 15 أغسطس 2026</span></div><span class="status">تم التسليم</span><div class="price">75,000 SYP</div></div>
+
+<div class="notice"><b>طلبك عبر مسوّق؟</b><br>إذا وصلت إلى المتجر من رابط مسوّق، يتم حفظ الإحالة مع الطلب تلقائياً حتى لا تضيع العمولة.</div>
+</section>
+</section>
+</main>
+</body></html>`, "حسابي | Syria Commerce");
+    }
+
+    if (request.method === "GET" && url.pathname === "/marketer") {
+      return htmlResponse(`<!doctype html><html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مساحة المسوّق | Syria Commerce</title>
+<style>
+:root{--ink:#171414;--paper:#fbf8f5;--white:#fff;--brand:#e54845;--soft:#f5e7e2;--line:#e9e1dc;--muted:#756a65}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Tahoma,sans-serif}.wrap{max-width:1220px;margin:auto;padding:0 22px}a{text-decoration:none;color:inherit}
+.top{height:32px;background:var(--ink);color:#eee;font-size:10px}.topin{height:100%;display:flex;justify-content:space-between;align-items:center}.top b{color:#ffaaa6}
+.nav{height:74px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.navin{height:100%;display:flex;align-items:center;gap:24px}.logo{display:flex;gap:10px;align-items:center;font-size:19px;font-weight:950}.logo i{font-style:normal;background:var(--brand);color:#fff;padding:11px 12px;border-radius:11px}.links{display:flex;gap:3px;flex:1}.links a{font-size:12px;font-weight:850;padding:10px 11px;border-radius:9px;color:#554b47}.links a.active,.links a:hover{background:var(--soft);color:var(--brand)}.avatar{width:34px;height:34px;border-radius:10px;background:var(--soft);display:grid;place-items:center;color:var(--brand);font-weight:900;font-size:10px}
+.hero{padding:42px 0 20px}.heroIn{display:flex;justify-content:space-between;align-items:end}.eyebrow{font-size:10px;color:var(--brand);font-weight:950}.hero h1{font-size:39px;letter-spacing:-1.5px;margin:7px 0}.hero p{font-size:13px;color:var(--muted);margin:0}.period{font-size:10px;background:#fff;border:1px solid var(--line);padding:10px 12px;border-radius:10px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0 13px}.kpi,.panel{background:#fff;border:1px solid var(--line);border-radius:19px}.kpi{padding:18px}.kpiTop{display:flex;justify-content:space-between;color:var(--muted);font-size:10px}.dot{width:8px;height:8px;border-radius:50%;background:var(--brand)}.kpi b{display:block;font-size:25px;margin-top:12px}.trend{font-size:9px;color:#19745d;font-weight:900;margin-top:6px}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:12px}.panel{padding:20px}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.head h2{font-size:17px;margin:0}.head span{font-size:9px;color:var(--muted)}
+.chart{height:220px;display:flex;align-items:end;gap:9px;border-bottom:1px solid var(--line);padding:15px 4px 0}.bar{flex:1;background:var(--soft);border-radius:7px 7px 0 0}.bar.hot{background:var(--brand)}
+.rank{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--line)}.rank:first-child{border-top:0}.rankImg{width:42px;height:42px;border-radius:12px;background:#f3eee9;display:grid;place-items:center}.rankMain{flex:1}.rankMain b{display:block;font-size:11px}.rankMain span{font-size:9px;color:var(--muted)}.profit{font-size:11px;font-weight:950;color:#19745d}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:9px}.tool{border:1px solid var(--line);border-radius:14px;padding:15px}.tool b{display:block;font-size:11px;margin:8px 0 4px}.tool span{font-size:9px;color:var(--muted);line-height:1.6}.tool a{display:block;color:var(--brand);font-size:9px;font-weight:900;margin-top:9px}
+.ref{background:var(--ink);color:#fff;border-radius:19px;padding:20px}.ref h2{font-size:17px;margin:0 0 5px}.ref p{font-size:10px;color:#c9bfba;line-height:1.6}.refbox{background:#fff;color:var(--ink);border-radius:10px;padding:11px;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.refrow{display:flex;gap:7px;margin-top:8px}.btn{border:0;border-radius:10px;padding:10px 13px;font-weight:900;font-size:10px;cursor:pointer}.brand{background:var(--brand);color:#fff}.light{background:#fff;color:var(--ink)}
+.orders{margin-top:12px}.order{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}.order:first-of-type{border-top:0}.order b{font-size:11px}.order small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.status{font-size:8px;font-weight:900;background:#f0ede9;padding:7px 9px;border-radius:99px}.pending{background:var(--soft);color:var(--brand)}.amount{font-size:11px;font-weight:950}
+.footer{padding:30px 0 45px;color:var(--muted);font-size:10px}.foot{display:flex;justify-content:space-between}
+@media(max-width:900px){.links{display:none}.kpis{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.heroIn{align-items:start;gap:15px;flex-direction:column}}
+@media(max-width:600px){.top{display:none}.hero h1{font-size:32px}.kpi{padding:14px}.kpi b{font-size:21px}.tools{grid-template-columns:1fr}.order{grid-template-columns:1fr auto}.amount{grid-column:1}.foot{flex-direction:column;gap:8px}}
+</style></head><body>
+<div class="top"><div class="wrap topin"><span>مساحة المسوّق · كل أرقامك في مكان واحد</span><span>دعم المسوّقين · Syria Commerce</span></div></div>
+<header class="nav"><div class="wrap navin"><a class="logo" href="/"><i>SC</i><span>Syria Commerce</span></a>
+<nav class="links"><a class="active" href="/marketer">نظرة عامة</a><a href="/products">المنتجات</a><a href="/marketer/orders">الطلبات</a><a href="/marketer/commissions">العمولات</a><a href="/marketer/tools">أدوات التسويق</a></nav><a href="/account" class="avatar">مس</a></div></header>
+<main class="wrap"><section class="hero"><div class="heroIn"><div><div class="eyebrow">MARKETER WORKSPACE</div><h1>مساحتك للبيع والنمو.</h1><p>تابع مبيعاتك وعمولاتك وروابط منتجاتك من لوحة واحدة.</p></div><div class="period">آخر 30 يومًا ▾</div></div></section>
+<section class="kpis">
+<div class="kpi"><div class="kpiTop"><span>إجمالي المبيعات</span><i class="dot"></i></div><b>12.4M</b><div class="trend">↑ 18.6%</div></div>
+<div class="kpi"><div class="kpiTop"><span>عمولاتك</span><i class="dot"></i></div><b>1.84M</b><div class="trend">↑ 12.2%</div></div>
+<div class="kpi"><div class="kpiTop"><span>الطلبات</span><i class="dot"></i></div><b>86</b><div class="trend">↑ 9 طلبات جديدة</div></div>
+<div class="kpi"><div class="kpiTop"><span>نسبة التحويل</span><i class="dot"></i></div><b>6.8%</b><div class="trend">↑ 1.1 نقطة</div></div></section>
+<section class="grid"><div class="panel"><div class="head"><h2>أداء المبيعات</h2><span>آخر 30 يومًا</span></div><div class="chart">
+<div class="bar" style="height:34%"></div><div class="bar" style="height:42%"></div><div class="bar hot" style="height:55%"></div><div class="bar" style="height:47%"></div><div class="bar" style="height:63%"></div><div class="bar hot" style="height:70%"></div><div class="bar" style="height:58%"></div><div class="bar" style="height:78%"></div><div class="bar hot" style="height:88%"></div><div class="bar" style="height:74%"></div><div class="bar" style="height:92%"></div><div class="bar hot" style="height:100%"></div></div></div>
+<div class="panel"><div class="head"><h2>أفضل المنتجات</h2><span>حسب الربح</span></div>
+<div class="rank"><div class="rankImg">🎧</div><div class="rankMain"><b>سماعة بلوتوث</b><span>24 طلب</span></div><div class="profit">+420K</div></div>
+<div class="rank"><div class="rankImg">⌚</div><div class="rankMain"><b>ساعة رجالية</b><span>18 طلب</span></div><div class="profit">+360K</div></div>
+<div class="rank"><div class="rankImg">🧴</div><div class="rankMain"><b>عطر رجالي</b><span>15 طلب</span></div><div class="profit">+285K</div></div></div></section>
+<section class="grid" style="margin-top:12px"><div class="panel"><div class="head"><h2>أدوات التسويق</h2><span>كل ما تحتاجه</span></div><div class="tools">
+<div class="tool"><b>🔗 روابط الإحالة</b><span>أنشئ رابطًا خاصًا لأي منتج وتتبع مبيعاتك.</span><a href="/products">اختيار منتج ←</a></div>
+<div class="tool"><b>📸 محتوى جاهز</b><span>صور ونصوص تساعدك على إطلاق الإعلان أسرع.</span><a href="/marketer/tools">فتح الأدوات ←</a></div>
+<div class="tool"><b>📊 تقرير الأداء</b><span>اعرف المنتجات التي تحقق أفضل نتيجة.</span><a href="/marketer/commissions">عرض التقرير ←</a></div>
+<div class="tool"><b>💳 العمولات</b><span>تابع المستحق والمعلّق والمدفوع بوضوح.</span><a href="/marketer/commissions">عرض العمولات ←</a></div></div></div>
+<div class="ref"><h2>رابطك التسويقي</h2><p>أي طلب يأتي من رابطك يُنسب لحسابك.</p><div class="refbox">https://syria-commerce.com/r/marketer-demo</div><div class="refrow"><button class="btn brand" onclick="navigator.clipboard&&navigator.clipboard.writeText('https://syria-commerce.com/r/marketer-demo');this.textContent='تم النسخ ✓'">نسخ الرابط</button><a class="btn light" href="/products">اختيار منتج</a></div></div></section>
+<section class="panel orders"><div class="head"><h2>آخر الطلبات</h2><a href="/marketer/orders" style="font-size:9px;color:var(--brand);font-weight:900">عرض الكل ←</a></div>
+<div class="order"><div><b>#SC-10482</b><small>سماعة بلوتوث · عبر رابطك</small></div><span class="status pending">قيد التجهيز</span><div class="amount">185,000 SYP</div></div>
+<div class="order"><div><b>#SC-10391</b><small>ساعة رجالية · عبر رابطك</small></div><span class="status">مكتمل</span><div class="amount">120,000 SYP</div></div>
+<div class="order"><b>#SC-10340</b><small>عطر رجالي · عبر رابطك</small><span class="status">مكتمل</span><div class="amount">95,000 SYP</div></div></section></main>
+<footer class="footer"><div class="wrap foot"><span>© 2026 Syria Commerce</span><span>مساحة المسوّق · الدعم · سياسة الاستخدام</span></div></footer>
+</body></html>`, "مساحة المسوّق | Syria Commerce");
+    }
+
+
+    if (request.method === "GET" && (url.pathname === "/login" || url.pathname === "/register" || url.pathname === "/forgot-password")) {
+      const mode = url.pathname === "/register" ? "register" : url.pathname === "/forgot-password" ? "forgot" : "login";
+      return htmlResponse(`<!doctype html><html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${mode==="register"?"إنشاء حساب":mode==="forgot"?"استعادة كلمة المرور":"تسجيل الدخول"} | Syria Commerce</title>
+<style>
+:root{--ink:#171414;--paper:#fbf8f5;--white:#fff;--brand:#e54845;--soft:#f5e7e2;--line:#e9e1dc;--muted:#756a65}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Tahoma,sans-serif}.wrap{max-width:1120px;margin:auto;padding:0 22px}
+.nav{height:74px;background:#fff;border-bottom:1px solid var(--line)}.navin{height:100%;display:flex;align-items:center;justify-content:space-between}.logo{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:950}.logo i{font-style:normal;background:var(--brand);color:#fff;border-radius:11px;padding:11px 12px}.nav a{font-size:11px;font-weight:900}.back{color:var(--muted)}
+.main{min-height:calc(100vh - 74px);display:grid;grid-template-columns:1fr 420px;gap:70px;align-items:center;padding:55px 0}.copy .eyebrow{font-size:10px;color:var(--brand);font-weight:950}.copy h1{font-size:50px;letter-spacing:-2px;line-height:1.05;margin:9px 0 14px}.copy p{font-size:13px;color:var(--muted);line-height:1.8;max-width:500px}.points{margin-top:25px;display:grid;gap:11px}.point{display:flex;gap:10px;align-items:center;font-size:11px;font-weight:800}.point i{width:27px;height:27px;border-radius:9px;background:var(--soft);display:grid;place-items:center;color:var(--brand);font-style:normal}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:27px;box-shadow:0 18px 50px rgba(23,20,20,.06)}.card h2{font-size:22px;margin:0 0 7px}.sub{font-size:10px;color:var(--muted);margin-bottom:22px}.field{margin-bottom:13px}.field label{display:block;font-size:10px;font-weight:850;margin-bottom:6px}.field input,.field select{width:100%;height:45px;border:1px solid var(--line);border-radius:11px;padding:0 12px;font-size:11px;background:#fff;color:var(--ink);outline:0}.field input:focus,.field select:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--soft)}.row{display:flex;gap:9px}.row>*{flex:1}.btn{width:100%;height:46px;border:0;border-radius:11px;background:var(--brand);color:#fff;font-weight:950;cursor:pointer}.links{display:flex;justify-content:space-between;margin-top:14px;font-size:10px}.links a{color:var(--brand);font-weight:900}.terms{font-size:9px;color:var(--muted);line-height:1.7;margin-top:13px}.role{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:15px}.role label{border:1px solid var(--line);border-radius:10px;padding:11px;text-align:center;font-size:10px;font-weight:900;cursor:pointer}.role input{display:none}.role input:checked+span{color:var(--brand)}.role label:has(input:checked){border-color:var(--brand);background:var(--soft)}
+@media(max-width:800px){.main{grid-template-columns:1fr;gap:25px;padding:35px 0}.copy h1{font-size:38px}.copy{order:1}.card{order:2}}
+</style></head><body>
+<header class="nav"><div class="wrap navin"><a class="logo" href="/"><i>SC</i><span>Syria Commerce</span></a><a class="back" href="/">العودة للرئيسية ←</a></div></header>
+<main class="wrap main">
+<section class="copy"><div class="eyebrow">SYRIA COMMERCE</div><h1>${mode==="register"?"ابدأ تجارتك من هنا.":mode==="forgot"?"استرجع وصولك بسهولة.":"أهلاً بعودتك."}</h1><p>${mode==="register"?"أنشئ حسابك وابدأ بالتسوق أو التسويق من مساحة واحدة مصممة ببساطة.":mode==="forgot"?"أدخل بريدك الإلكتروني وسنرسل لك خطوات إعادة تعيين كلمة المرور.":"سجّل دخولك للوصول إلى طلباتك أو مساحة المسوّق الخاصة بك."}</p>
+<div class="points"><div class="point"><i>✓</i> حساب آمن وتجربة بسيطة</div><div class="point"><i>✓</i> طلباتك وبياناتك في مكان واحد</div><div class="point"><i>✓</i> مساحة مستقلة للمسوّقين</div></div></section>
+<section class="card">
+<h2>${mode==="register"?"إنشاء حساب":mode==="forgot"?"نسيت كلمة المرور؟":"تسجيل الدخول"}</h2>
+<div class="sub">${mode==="register"?"أنشئ حسابًا جديدًا خلال دقائق.":mode==="forgot"?"لا تقلق، سنساعدك على استعادة الحساب.":"أدخل بيانات حسابك للمتابعة."}</div>
+${mode==="register"?'<div class="role"><label><input type="radio" name="role" checked><span>عميل</span></label><label><input type="radio" name="role"><span>مسوّق</span></label></div>':''}
+${mode==="register"?'<div class="field"><label>الاسم الكامل</label><input placeholder="مثال: محمد أحمد"></div>':''}
+<div class="field"><label>البريد الإلكتروني</label><input type="email" placeholder="name@example.com"></div>
+${mode!=="forgot"?'<div class="field"><label>كلمة المرور</label><input type="password" placeholder="••••••••"></div>':''}
+${mode==="register"?'<div class="field"><label>تأكيد كلمة المرور</label><input type="password" placeholder="••••••••"></div>':''}
+<button class="btn">${mode==="register"?"إنشاء الحساب":mode==="forgot"?"إرسال رابط الاستعادة":"دخول"}</button>
+<div class="links">${mode!=="forgot"?'<a href="/forgot-password">نسيت كلمة المرور؟</a>':''}<a href="${mode==="register"?"/login":"/register"}">${mode==="register"?"لديك حساب؟ تسجيل الدخول":"إنشاء حساب جديد"}</a></div>
+<div class="terms">بالاستمرار، أنت توافق على شروط الاستخدام وسياسة الخصوصية.</div>
+</section></main></body></html>`, "Authentication | Syria Commerce");
+    }
+
+
+    if (url.pathname === "/api/products" && request.method === "GET") {
+      if (!env || !env.DB) {
+        return jsonResponse({ ok: true, products: [], source: "database-not-bound" });
+      }
+      const status = url.searchParams.get("status") || "active";
+      const category = url.searchParams.get("category");
+      const q = url.searchParams.get("q");
+      let sql = `SELECT p.*, c.name AS category_name
+                 FROM products p LEFT JOIN categories c ON c.id=p.category_id
+                 WHERE p.status = ?`;
+      const params = [status];
+      if (category) { sql += " AND p.category_id = ?"; params.push(category); }
+      if (q) { sql += " AND (p.name LIKE ? OR p.description LIKE ?)"; params.push("%"+q+"%", "%"+q+"%"); }
+      sql += " ORDER BY p.created_at DESC";
+      const result = await env.DB.prepare(sql).bind(...params).all();
+      return jsonResponse({ ok: true, products: result.results || [] });
+    }
+
+    if (url.pathname.startsWith("/api/products/") && request.method === "GET") {
+      const id = url.pathname.split("/").pop();
+      if (!env || !env.DB) {
+        return jsonResponse({ ok: false, error: "DATABASE_NOT_BOUND" }, 503);
+      }
+      const result = await env.DB.prepare(
+        `SELECT p.*, c.name AS category_name
+         FROM products p LEFT JOIN categories c ON c.id=p.category_id
+         WHERE p.id=? OR p.slug=? LIMIT 1`
+      ).bind(id, id).first();
+      if (!result) return jsonResponse({ ok: false, error: "PRODUCT_NOT_FOUND" }, 404);
+      const images = await env.DB.prepare(
+        `SELECT * FROM product_images WHERE product_id=? ORDER BY sort_order`
+      ).bind(result.id).all();
+      return jsonResponse({ ok: true, product: result, images: images.results || [] });
+    }
+
+    if (url.pathname === "/api/categories" && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ ok: true, categories: [], source: "database-not-bound" });
+      const result = await env.DB.prepare(
+        `SELECT * FROM categories WHERE is_active=1 ORDER BY sort_order, name`
+      ).all();
+      return jsonResponse({ ok: true, categories: result.results || [] });
+    }
+
+
 };
