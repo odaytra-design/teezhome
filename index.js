@@ -1465,4 +1465,175 @@ ${mode==="register"?'<div class="field"><label>تأكيد كلمة المرور<
     }
 
 
+    if (url.pathname === "/api/orders" && request.method === "POST") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      let body;
+      try { body = await request.json(); } catch { return jsonResponse({ok:false,error:"INVALID_JSON"},400); }
+
+      const items = Array.isArray(body.items) ? body.items : [];
+      if (!items.length) return jsonResponse({ok:false,error:"EMPTY_CART"},400);
+      if (!body.customer_name || !body.customer_phone || !body.governorate || !body.address_line)
+        return jsonResponse({ok:false,error:"MISSING_CUSTOMER_DATA"},400);
+
+      const ids = items.map(x => x.product_id).filter(Boolean);
+      if (!ids.length) return jsonResponse({ok:false,error:"INVALID_ITEMS"},400);
+
+      const placeholders = ids.map(() => "?").join(",");
+      const products = await env.DB.prepare(
+        `SELECT * FROM products WHERE id IN (${placeholders}) AND status='active'`
+      ).bind(...ids).all();
+      const productMap = Object.fromEntries((products.results || []).map(p => [p.id, p]));
+
+      let subtotal = 0;
+      const normalized = [];
+      for (const item of items) {
+        const p = productMap[item.product_id];
+        const qty = Math.max(1, Number(item.quantity || 1));
+        if (!p) return jsonResponse({ok:false,error:"PRODUCT_NOT_FOUND",product_id:item.product_id},404);
+        if (Number(p.stock) < qty) return jsonResponse({ok:false,error:"INSUFFICIENT_STOCK",product_id:p.id},409);
+        const line = Number(p.price) * qty;
+        const commission = line * (Number(p.commission_rate || 0) / 100);
+        subtotal += line;
+        normalized.push({p, qty, line, commission});
+      }
+
+      const shipping = Number(body.shipping_fee || 0);
+      const total = subtotal + shipping;
+      const orderId = crypto.randomUUID();
+      const orderNumber = "SC-" + String(Date.now()).slice(-8);
+
+      // Referral attribution: marketer_id may be supplied by a trusted session later;
+      // referral_code is resolved server-side to avoid trusting a raw marketer id.
+      let marketerId = null;
+      let referralCode = body.referral_code || null;
+      if (referralCode) {
+        const ref = await env.DB.prepare(
+          `SELECT user_id, referral_code FROM marketer_profiles WHERE referral_code=? LIMIT 1`
+        ).bind(referralCode).first();
+        if (ref) {
+          marketerId = ref.user_id;
+          referralCode = ref.referral_code;
+        } else {
+          referralCode = null;
+        }
+      }
+
+      await env.DB.prepare(
+        `INSERT INTO orders
+        (id,order_number,customer_id,marketer_id,referral_code,status,customer_name,customer_phone,
+         governorate,area,address_line,notes,subtotal,shipping_fee,total)
+         VALUES (?,?,?,?,?,'pending',?,?,?,?,?,?,?,?,?,?)`
+      ).bind(
+        orderId, orderNumber, body.customer_id || null, marketerId, referralCode,
+        body.customer_name, body.customer_phone, body.governorate, body.area || null,
+        body.address_line, body.notes || null, subtotal, shipping, total
+      ).run();
+
+      for (const x of normalized) {
+        await env.DB.prepare(
+          `INSERT INTO order_items
+          (id,order_id,product_id,product_name,unit_price,quantity,commission_rate,commission_amount,line_total)
+          VALUES (?,?,?,?,?,?,?,?,?)`
+        ).bind(
+          crypto.randomUUID(), orderId, x.p.id, x.p.name, x.p.price, x.qty,
+          x.p.commission_rate || 0, marketerId ? x.commission : 0, x.line
+        ).run();
+
+        await env.DB.prepare(
+          `UPDATE products SET stock=stock-?, updated_at=CURRENT_TIMESTAMP WHERE id=?`
+        ).bind(x.qty, x.p.id).run();
+      }
+
+      if (marketerId) {
+        const commissionTotal = normalized.reduce((a,x) => a + x.commission, 0);
+        await env.DB.prepare(
+          `INSERT INTO commissions (id,order_id,marketer_id,amount,status)
+           VALUES (?,?,?,?,'pending')`
+        ).bind(crypto.randomUUID(), orderId, marketerId, commissionTotal).run();
+      }
+
+      return jsonResponse({
+        ok:true, order_id:orderId, order_number:orderNumber,
+        subtotal, shipping_fee:shipping, total, marketer_id:marketerId,
+        referral_code:referralCode
+      },201);
+    }
+
+    if (url.pathname === "/api/orders" && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const customerId = url.searchParams.get("customer_id");
+      const marketerId = url.searchParams.get("marketer_id");
+      let sql = `SELECT * FROM orders WHERE 1=1`;
+      const params = [];
+      if (customerId) { sql += " AND customer_id=?"; params.push(customerId); }
+      if (marketerId) { sql += " AND marketer_id=?"; params.push(marketerId); }
+      sql += " ORDER BY created_at DESC LIMIT 100";
+      const result = await env.DB.prepare(sql).bind(...params).all();
+      return jsonResponse({ok:true,orders:result.results || []});
+    }
+
+    if (url.pathname.startsWith("/api/orders/") && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const id = url.pathname.split("/").pop();
+      const order = await env.DB.prepare(
+        `SELECT * FROM orders WHERE id=? OR order_number=? LIMIT 1`
+      ).bind(id,id).first();
+      if (!order) return jsonResponse({ok:false,error:"ORDER_NOT_FOUND"},404);
+      const items = await env.DB.prepare(
+        `SELECT * FROM order_items WHERE order_id=?`
+      ).bind(order.id).all();
+      return jsonResponse({ok:true,order,items:items.results || []});
+    }
+
+
+    if (url.pathname === "/api/referrals/resolve" && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const code = (url.searchParams.get("code") || "").trim();
+      if (!code) return jsonResponse({ok:false,error:"MISSING_REFERRAL_CODE"},400);
+      const marketer = await env.DB.prepare(
+        `SELECT u.id AS marketer_id,u.full_name,mp.referral_code,mp.commission_rate
+         FROM marketer_profiles mp JOIN users u ON u.id=mp.user_id
+         WHERE mp.referral_code=? AND u.role='marketer' AND u.status='active' LIMIT 1`
+      ).bind(code).first();
+      if (!marketer) return jsonResponse({ok:false,error:"INVALID_REFERRAL"},404);
+      return jsonResponse({ok:true,referral:{
+        marketer_id:marketer.marketer_id,
+        marketer_name:marketer.full_name,
+        referral_code:marketer.referral_code,
+        commission_rate:marketer.commission_rate
+      }});
+    }
+
+    if (url.pathname === "/api/referrals/click" && request.method === "POST") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      let body;
+      try { body = await request.json(); } catch { return jsonResponse({ok:false,error:"INVALID_JSON"},400); }
+      const code = (body.referral_code || "").trim();
+      if (!code) return jsonResponse({ok:false,error:"MISSING_REFERRAL_CODE"},400);
+      const marketer = await env.DB.prepare(
+        `SELECT user_id,referral_code FROM marketer_profiles WHERE referral_code=? LIMIT 1`
+      ).bind(code).first();
+      if (!marketer) return jsonResponse({ok:false,error:"INVALID_REFERRAL"},404);
+      const id = crypto.randomUUID();
+      await env.DB.prepare(
+        `INSERT INTO referrals(id,marketer_id,referral_code,product_id,customer_id,clicks,last_clicked_at)
+         VALUES(?,?,?,?,?,1,CURRENT_TIMESTAMP)`
+      ).bind(id,marketer.user_id,marketer.referral_code,body.product_id || null,body.customer_id || null).run();
+      return jsonResponse({ok:true,tracked:true,referral_id:id});
+    }
+
+    if (url.pathname === "/api/referrals/marketer" && request.method === "GET") {
+      if (!env || !env.DB) return jsonResponse({ok:false,error:"DATABASE_NOT_BOUND"},503);
+      const marketerId = url.searchParams.get("marketer_id");
+      if (!marketerId) return jsonResponse({ok:false,error:"MISSING_MARKETER_ID"},400);
+      const result = await env.DB.prepare(
+        `SELECT referral_code, product_id, SUM(clicks) AS clicks,
+                MAX(last_clicked_at) AS last_clicked_at, MAX(created_at) AS created_at
+         FROM referrals WHERE marketer_id=? GROUP BY referral_code,product_id
+         ORDER BY last_clicked_at DESC LIMIT 200`
+      ).bind(marketerId).all();
+      return jsonResponse({ok:true,referrals:result.results || []});
+    }
+
+
 };
