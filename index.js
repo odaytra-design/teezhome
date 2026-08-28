@@ -1033,106 +1033,80 @@ export default {
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Syria Commerce | سوقك أسهل</title>
+<title>Syria Commerce | تسوّق من كل سوريا</title>
 <style>
-:root{--ink:#111827;--muted:#667085;--line:#e8eaef;--bg:#f6f7f9;--card:#fff;--soft:#f0f2f5;--accent:#111827;--accent2:#2563eb}
+:root{--green:#0b9f68;--green2:#087a54;--deep:#032f2c;--deep2:#061d25;--mint:#e9f8f1;--ink:#10201e;--muted:#687775;--line:#e5ebe8;--bg:#f7faf8;--card:#fff;--red:#ef4444}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Tahoma,sans-serif}
-a{text-decoration:none;color:inherit}.wrap{max-width:1220px;margin:auto;padding:0 20px}
-.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}.nav{height:72px;display:flex;align-items:center;gap:22px}
-.logo{font-size:23px;font-weight:900;letter-spacing:-.4px;white-space:nowrap}.logo span{font-weight:500;color:#667085}
-.links{display:flex;align-items:center;gap:3px;flex:1}.links a{padding:10px 12px;border-radius:10px;color:#475467;font-weight:600}.links a:hover{background:var(--soft);color:var(--ink)}
-.navActions{display:flex;gap:8px}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:11px;padding:11px 17px;font-weight:800;cursor:pointer}.dark{background:var(--accent);color:#fff}.light{background:var(--soft);color:var(--ink)}.blue{background:var(--accent2);color:#fff}
-.hero{background:#fff;padding:55px 0 32px}.heroGrid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
-.eyebrow{display:inline-flex;padding:7px 11px;background:#eef2ff;color:#3730a3;border-radius:999px;font-size:13px;font-weight:800}
-h1{font-size:52px;line-height:1.1;letter-spacing:-1.6px;margin:18px 0 15px}.lead{font-size:18px;line-height:1.9;color:var(--muted);max-width:650px;margin:0 0 24px}.heroBtns{display:flex;gap:10px;flex-wrap:wrap}
-.searchBox{margin-top:25px;background:#f8fafc;border:1px solid var(--line);border-radius:15px;padding:8px;display:flex;gap:8px;max-width:650px}.searchBox input{border:0;outline:0;background:transparent;flex:1;padding:11px;font-size:15px;direction:rtl}.searchBox button{border:0;border-radius:10px;padding:11px 17px;font-weight:800;background:#111827;color:#fff}
-.heroVisual{background:#111827;border-radius:27px;padding:16px;box-shadow:0 22px 55px #00000016}.shop{background:#fff;border-radius:18px;padding:16px}.shopHead{display:flex;justify-content:space-between;align-items:center;padding-bottom:13px;border-bottom:1px solid var(--line)}.shopHead b{font-size:17px}.avatar{width:34px;height:34px;border-radius:50%;background:var(--soft)}
-.shopSearch{margin:13px 0;background:var(--bg);border-radius:10px;padding:11px;color:#98a2b3;font-size:12px}.chips{display:flex;gap:7px;overflow:hidden}.chip{background:var(--soft);padding:7px 10px;border-radius:999px;font-size:11px;white-space:nowrap}
-.showcase{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.item{border:1px solid var(--line);border-radius:12px;padding:9px}.itemPic{height:105px;border-radius:9px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:35px}.item b{display:block;margin-top:8px;font-size:12px}.item small{display:block;color:var(--muted);margin-top:4px}
-.section{padding:43px 0}.sectionHead{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:18px}.sectionHead h2{margin:0;font-size:29px}.sectionHead p{margin:7px 0 0;color:var(--muted)}
-.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:11px}.cat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:19px 12px;text-align:center;font-weight:800}.cat .catIcon{font-size:28px;margin-bottom:9px}.cat:hover{transform:translateY(-2px);box-shadow:0 10px 24px #0000000a}
-.products{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.product{background:#fff;border:1px solid var(--line);border-radius:17px;padding:11px}.productPic{height:190px;background:var(--soft);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:45px}.product h3{font-size:16px;margin:13px 2px 5px}.desc{font-size:13px;color:var(--muted);margin:0 2px 10px}.price{font-size:19px;font-weight:900;margin:0 2px 12px}.product .btn{width:100%}
-.how{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.step{background:#fff;border:1px solid var(--line);border-radius:17px;padding:22px}.num{width:35px;height:35px;border-radius:10px;background:#111827;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900}.step h3{margin:13px 0 7px}.step p{color:var(--muted);line-height:1.75;margin:0}
-.marketer{background:#111827;color:#fff;border-radius:25px;padding:36px}.marketerGrid{display:grid;grid-template-columns:1fr auto;align-items:center;gap:25px}.marketer h2{font-size:30px;margin:0 0 9px}.marketer p{color:#cbd5e1;line-height:1.8;margin:0;max-width:700px}.marketer .light{background:#fff}
-.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.trustCard{background:#fff;border:1px solid var(--line);border-radius:17px;padding:21px}.trustCard b{display:block;margin-bottom:7px}.trustCard span{color:var(--muted);line-height:1.7;font-size:14px}
-.footer{background:#fff;border-top:1px solid var(--line);margin-top:15px;padding:27px 0}.footerGrid{display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:13px}.footerLinks{display:flex;gap:18px}.footerLinks a:hover{color:var(--ink)}
-@media(max-width:950px){.heroGrid{grid-template-columns:1fr}.categories{grid-template-columns:repeat(3,1fr)}.products{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.links{display:none}.nav{justify-content:space-between}.navActions .light{display:none}h1{font-size:38px}.hero{padding-top:38px}.categories,.products,.how,.trust{grid-template-columns:1fr}.showcase{grid-template-columns:1fr}.marketerGrid{grid-template-columns:1fr}.footerGrid{flex-direction:column}.searchBox{display:none}}
+a{text-decoration:none;color:inherit}.wrap{max-width:1240px;margin:auto;padding:0 20px}
+.topbar{background:#032c2b;color:#d7ebe7;font-size:12px}.topinner{height:38px;display:flex;justify-content:space-between;align-items:center}.topgroup{display:flex;gap:18px}.topgroup span{white-space:nowrap}
+.nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}.navinner{height:76px;display:flex;align-items:center;gap:28px}.logo{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:900;white-space:nowrap}.logoMark{width:39px;height:39px;border-radius:11px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px}.logo small{display:block;font-size:8px;letter-spacing:2px;color:#6a7775;margin-top:2px}
+.links{display:flex;gap:2px;align-items:center;flex:1}.links a{padding:11px 12px;color:#34423f;font-weight:700;border-radius:10px}.links a.active,.links a:hover{color:var(--green);background:#f0faf6}
+.actions{display:flex;gap:8px}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;padding:11px 17px;font-weight:800;cursor:pointer}.green{background:var(--green);color:#fff}.dark{background:#082d2b;color:#fff}.light{background:#edf3f1;color:#17302c}
+.hero{background:linear-gradient(110deg,var(--deep2),var(--deep) 58%,#0b6250);color:#fff;overflow:hidden}.heroGrid{min-height:500px;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:35px}
+.heroCopy{padding:45px 0}.eyebrow{display:inline-flex;background:#0b5a4d;border:1px solid #18886e;color:#c9f4e5;padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px}
+h1{font-size:55px;line-height:1.08;letter-spacing:-1.8px;margin:18px 0 14px}.heroCopy p{font-size:18px;line-height:1.85;color:#c7dad6;max-width:650px;margin:0 0 24px}.heroBtns{display:flex;gap:10px;flex-wrap:wrap}.heroBtns .light{background:#fff;color:#07332f}
+.search{max-width:670px;margin-top:24px;background:#fff;border-radius:14px;padding:7px;display:flex;gap:7px}.search input{border:0;outline:0;flex:1;padding:12px;font-size:15px;color:var(--ink);direction:rtl}.search button{border:0;background:var(--green);color:#fff;border-radius:10px;padding:12px 20px;font-weight:900}
+.heroArt{position:relative;min-height:455px;display:flex;align-items:center;justify-content:center}.phone{width:265px;height:430px;background:#fff;border:8px solid #0b2426;border-radius:36px;box-shadow:0 25px 60px #0006;transform:rotate(4deg);overflow:hidden;color:var(--ink)}.phoneTop{padding:15px 13px 10px;display:flex;justify-content:space-between;font-weight:900}.phoneSearch{margin:4px 12px 10px;padding:9px;background:#f1f5f3;border-radius:9px;color:#91a09c;font-size:10px}.phoneCats{display:flex;gap:5px;padding:0 12px;overflow:hidden}.phoneCats span{white-space:nowrap;background:#e9f8f1;color:#087a54;border-radius:99px;padding:5px 7px;font-size:8px;font-weight:800}.phoneGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:11px 12px}.phoneItem{border:1px solid #e8eeeb;border-radius:9px;padding:6px}.phonePic{height:70px;border-radius:7px;background:#f0f4f2;display:flex;align-items:center;justify-content:center;font-size:28px}.phoneItem b{font-size:9px;display:block;margin-top:6px}.phoneItem small{font-size:8px;color:#6c7a77}.bag{position:absolute;width:180px;height:205px;left:3%;bottom:45px;background:#063f39;border-radius:14px 14px 22px 22px;transform:rotate(-7deg);box-shadow:0 18px 35px #0005;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900}.bag:before{content:"";position:absolute;width:72px;height:48px;border:5px solid #0b7c62;border-bottom:0;border-radius:50px 50px 0 0;top:-35px}.box{position:absolute;width:160px;height:100px;right:2%;bottom:38px;background:#b88a55;transform:rotate(5deg);box-shadow:0 15px 30px #0005;border-radius:3px;color:#76532d;display:flex;align-items:center;justify-content:center;font-size:28px}
+.sideTrust{position:absolute;right:0;top:70px;display:grid;gap:8px}.trustPill{width:150px;background:#062d2bdf;border:1px solid #13715d;border-radius:11px;padding:12px;color:#fff}.trustPill b{display:block;font-size:13px}.trustPill span{font-size:10px;color:#b9d5cf}
+.section{padding:43px 0}.head{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px}.head h2{margin:0;font-size:29px}.head p{margin:6px 0 0;color:var(--muted)}
+.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.cat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 10px;text-align:center;font-weight:900;transition:.15s}.cat:hover{border-color:#9edcc5;transform:translateY(-2px)}.cat i{font-style:normal;font-size:27px;display:block;margin-bottom:8px}
+.deals{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.product{background:#fff;border:1px solid var(--line);border-radius:17px;padding:11px;position:relative}.badge{position:absolute;top:18px;right:18px;background:var(--red);color:#fff;padding:5px 7px;border-radius:6px;font-size:10px;font-weight:900}.pPic{height:205px;background:#f1f5f3;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:52px}.product h3{font-size:15px;margin:13px 2px 4px}.product p{font-size:12px;color:var(--muted);margin:0 2px 10px}.priceRow{display:flex;align-items:center;justify-content:space-between;gap:8px}.price{font-size:18px;font-weight:900}.old{text-decoration:line-through;color:#9aa6a3;font-size:11px;font-weight:400;margin-right:5px}.cart{width:38px;height:38px;padding:0;border:1px solid #9bd9c1;background:#effbf6;color:var(--green);border-radius:10px;font-size:18px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:15px}.panel{border-radius:20px;padding:30px;min-height:245px}.panel h2{margin:0 0 8px;font-size:27px}.panel p{line-height:1.75;margin:0 0 18px}.seller{background:#eaf8f1}.seller p{color:#47645b}.seller .checks{display:grid;gap:7px;color:#33564c;font-size:13px}.seller .checks span:before{content:"✓";color:var(--green);font-weight:900;margin-left:7px}.seller .btn{margin-top:16px}.how{background:#fff;border:1px solid var(--line)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:25px}.step{text-align:center}.stepNum{margin:auto;width:37px;height:37px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900}.step b{display:block;margin:10px 0 5px}.step span{font-size:12px;color:var(--muted);line-height:1.6}
+.benefits{background:#032f2c;color:#fff;padding:30px 0}.benefitGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.benefit{text-align:center;border-left:1px solid #1d5a53;padding:8px}.benefit:last-child{border:0}.benefit b{display:block;font-size:16px;margin:7px}.benefit span{font-size:12px;color:#b8d1cd}
+.footer{background:#fff;padding:27px 0}.foot{display:flex;justify-content:space-between;gap:20px;color:#71807c;font-size:12px}.footLinks{display:flex;gap:17px}.footLinks a:hover{color:var(--green)}
+@media(max-width:980px){.links{display:none}.heroGrid{grid-template-columns:1fr}.heroArt{min-height:390px}.categories{grid-template-columns:repeat(3,1fr)}.deals{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.topbar{display:none}.navinner{height:67px}.actions .light{display:none}.logo{font-size:19px}h1{font-size:39px}.heroCopy{padding:36px 0 10px}.search{display:none}.heroArt{min-height:390px}.phone{width:225px;height:365px}.sideTrust{right:0;top:35px}.trustPill{width:118px;padding:9px}.trustPill b{font-size:11px}.trustPill span{font-size:8px}.bag{width:130px;height:150px;left:0;bottom:28px}.box{width:115px;height:75px;right:0}.categories,.deals,.split,.benefitGrid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.panel{min-height:auto}.foot{flex-direction:column}}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap nav">
-<a class="logo" href="/">Syria Commerce <span>سوريا</span></a>
-<nav class="links">
-<a href="/">الرئيسية</a><a href="/products">المنتجات</a><a href="/cart">السلة</a><a href="/marketer">المسوّق</a>
-</nav>
-<div class="navActions"><a class="btn light" href="/login">تسجيل الدخول</a><a class="btn dark" href="/products">تسوّق الآن</a></div>
+
+<div class="topbar"><div class="wrap topinner"><div class="topgroup"><span>🚚 توصيل لجميع المحافظات السورية</span><span>الدفع عند الاستلام</span></div><div class="topgroup"><span>واتساب</span><span>+963 999 888 777</span><span>تتبع الطلب</span><span>الدعم</span></div></div></div>
+
+<header class="nav"><div class="wrap navinner">
+<a class="logo" href="/"><span class="logoMark">SC</span><span>Syria Commerce<small>SYRIA • COMMERCE</small></span></a>
+<nav class="links"><a class="active" href="/">الرئيسية</a><a href="/products">المنتجات</a><a href="/products">العروض</a><a href="/marketer">المسوّق</a><a href="/login">حسابي</a></nav>
+<div class="actions"><a class="btn light" href="/login">تسجيل دخول</a><a class="btn green" href="/register">انضم كمسوّق ↗</a></div>
 </div></header>
 
 <main>
 <section class="hero"><div class="wrap heroGrid">
-<div>
-<span class="eyebrow">منصة تجارة إلكترونية للسوق السوري</span>
-<h1>كل ما تحتاجه للتجارة،<br>في مكان واحد.</h1>
-<p class="lead">اكتشف المنتجات، اطلب بسهولة، أو ابدأ كمسوّق واختر المنتجات التي تريد تسويقها. تجربة مصممة لتكون بسيطة وسريعة من أول خطوة.</p>
-<div class="heroBtns"><a class="btn dark" href="/products">ابدأ التسوق</a><a class="btn light" href="/register">ابدأ كمسوّق</a></div>
-<form class="searchBox" action="/products" method="get"><input name="q" placeholder="ابحث عن منتج..." aria-label="البحث عن منتج"><button type="submit">بحث</button></form>
+<div class="heroCopy">
+<span class="eyebrow">منصة التجارة الإلكترونية للسوق السوري</span>
+<h1>تسوّق أفضل المنتجات<br><strong style="color:#18c986">من كل سوريا</strong></h1>
+<p>منتجات أصلية، أسعار منافسة، وتجربة شراء سهلة. اكتشف ما تحتاجه واطلبه من مكان واحد.</p>
+<div class="heroBtns"><a class="btn green" href="/products">🛍️ ابدأ التسوق</a><a class="btn light" href="/register">كن مسوّقاً واربح</a></div>
+<form class="search" action="/products" method="get"><input name="q" placeholder="ابحث عن منتج أو علامة تجارية..." aria-label="البحث عن منتج"><button>⌕ بحث</button></form>
 </div>
-<div class="heroVisual"><div class="shop">
-<div class="shopHead"><b>Syria Commerce</b><div class="avatar"></div></div>
-<div class="shopSearch">🔎 ابحث عن منتج أو تصنيف...</div>
-<div class="chips"><span class="chip">الأكثر مبيعاً</span><span class="chip">عروض اليوم</span><span class="chip">جديد</span></div>
-<div class="showcase"><div class="item"><div class="itemPic">🛍️</div><b>منتجات مميزة</b><small>اكتشف الآن</small></div><div class="item"><div class="itemPic">🔥</div><b>عروض حصرية</b><small>شاهد العروض</small></div></div>
-</div></div>
+<div class="heroArt">
+<div class="sideTrust"><div class="trustPill"><b>🚚 توصيل سريع</b><span>لجميع المحافظات</span></div><div class="trustPill"><b>🛡️ دفع آمن</b><span>الدفع عند الاستلام</span></div><div class="trustPill"><b>✓ منتجات أصلية</b><span>جودة مضمونة</span></div><div class="trustPill"><b>☎ دعم 24/7</b><span>نحن معك دائماً</span></div></div>
+<div class="bag">SC<br><small style="font-size:9px;letter-spacing:2px">SYRIA COMMERCE</small></div><div class="box">▣</div>
+<div class="phone"><div class="phoneTop"><span>Syria Commerce</span><span>🛒</span></div><div class="phoneSearch">🔎 ابحث عن منتج...</div><div class="phoneCats"><span>الأكثر مبيعاً</span><span>عروض</span><span>جديد</span></div><div class="phoneGrid"><div class="phoneItem"><div class="phonePic">🎧</div><b>سماعة لاسلكية</b><small>235,000 SYP</small></div><div class="phoneItem"><div class="phonePic">⌚</div><b>ساعة رجالية</b><small>480,000 SYP</small></div><div class="phoneItem"><div class="phonePic">🧴</div><b>عطر أصلي</b><small>360,000 SYP</small></div><div class="phoneItem"><div class="phonePic">🎒</div><b>حقيبة عملية</b><small>265,000 SYP</small></div></div></div>
+</div>
 </div></section>
 
-<section class="section"><div class="wrap">
-<div class="sectionHead"><div><h2>تصفح حسب التصنيف</h2><p>وصل للمنتج الذي تبحث عنه بسرعة</p></div><a class="btn light" href="/products">كل المنتجات</a></div>
-<div class="categories">
-<a class="cat" href="/products"><div class="catIcon">👕</div>ملابس</a>
-<a class="cat" href="/products"><div class="catIcon">💄</div>جمال</a>
-<a class="cat" href="/products"><div class="catIcon">🏠</div>منزل</a>
-<a class="cat" href="/products"><div class="catIcon">📱</div>إلكترونيات</a>
-<a class="cat" href="/products"><div class="catIcon">🧴</div>عناية</a>
-<a class="cat" href="/products"><div class="catIcon">🎁</div>عروض</a>
+<section class="section"><div class="wrap"><div class="head"><div><h2>تسوق حسب التصنيف</h2><p>كل ما تبحث عنه في مكان واحد</p></div><a class="btn light" href="/products">عرض الكل ←</a></div>
+<div class="categories"><a class="cat" href="/products"><i>👕</i>أزياء</a><a class="cat" href="/products"><i>💄</i>عناية وجمال</a><a class="cat" href="/products"><i>📱</i>موبايلات</a><a class="cat" href="/products"><i>🏠</i>منزل ومطبخ</a><a class="cat" href="/products"><i>⌚</i>إكسسوارات</a><a class="cat" href="/products"><i>🎁</i>عروض وهدايا</a></div></div></section>
+
+<section class="section"><div class="wrap"><div class="head"><div><h2>🔥 عروض مميزة</h2><p>اختيارات بأسعار أفضل لفترة محدودة</p></div><a class="btn light" href="/products">كل العروض ←</a></div>
+<div class="deals">
+<article class="product"><span class="badge">خصم 30%</span><div class="pPic">🎧</div><h3>سماعة بلوتوث لاسلكية</h3><p>تجربة صوت واضحة وتصميم عملي</p><div class="priceRow"><div class="price">235,000 <small>SYP</small><span class="old">335,000</span></div><a class="cart" href="/products">🛒</a></div></article>
+<article class="product"><span class="badge">خصم 20%</span><div class="pPic">⌚</div><h3>ساعة رجالية فاخرة</h3><p>تصميم أنيق للاستخدام اليومي</p><div class="priceRow"><div class="price">480,000 <small>SYP</small><span class="old">600,000</span></div><a class="cart" href="/products">🛒</a></div></article>
+<article class="product"><span class="badge">خصم 25%</span><div class="pPic">🧴</div><h3>عطر رجالي أصلي</h3><p>رائحة مميزة وثبات طويل</p><div class="priceRow"><div class="price">360,000 <small>SYP</small><span class="old">480,000</span></div><a class="cart" href="/products">🛒</a></div></article>
+<article class="product"><span class="badge">خصم 15%</span><div class="pPic">🎒</div><h3>حقيبة متعددة الاستخدام</h3><p>عملية للعمل والسفر والاستخدام اليومي</p><div class="priceRow"><div class="price">265,000 <small>SYP</small><span class="old">312,000</span></div><a class="cart" href="/products">🛒</a></div></article>
 </div></div></section>
 
-<section class="section"><div class="wrap">
-<div class="sectionHead"><div><h2>منتجات مختارة</h2><p>اكتشف بعض المنتجات المتاحة على المنصة</p></div><a class="btn light" href="/products">عرض الكل</a></div>
-<div class="products">
-<article class="product"><div class="productPic">📦</div><h3>منتج مميز</h3><p class="desc">تفاصيل المنتج ستظهر هنا</p><div class="price">—</div><a class="btn dark" href="/products">عرض المنتج</a></article>
-<article class="product"><div class="productPic">🛍️</div><h3>اختيار جديد</h3><p class="desc">اكتشف المنتجات الجديدة</p><div class="price">—</div><a class="btn dark" href="/products">عرض المنتج</a></article>
-<article class="product"><div class="productPic">⭐</div><h3>الأكثر طلباً</h3><p class="desc">منتجات يفضلها العملاء</p><div class="price">—</div><a class="btn dark" href="/products">عرض المنتج</a></article>
-<article class="product"><div class="productPic">🔥</div><h3>عرض مميز</h3><p class="desc">تابع أحدث العروض</p><div class="price">—</div><a class="btn dark" href="/products">عرض المنتج</a></article>
+<section class="section"><div class="wrap"><div class="split">
+<div class="panel seller"><h2>📈 سوق واربح</h2><p>انضم إلى شبكة المسوقين وابدأ بتحقيق دخل من منتجاتنا.</p><div class="checks"><span>عمولات تصل إلى 20%</span><span>روابط تسويق جاهزة</span><span>متابعة الطلبات والعمولات</span></div><a class="btn green" href="/register">انضم كمسوّق الآن</a></div>
+<div class="panel how"><h2>كيف تعمل المنصة؟</h2><p style="color:var(--muted)">تجربة بسيطة من اختيار المنتج حتى إتمام الطلب.</p><div class="steps"><div class="step"><div class="stepNum">1</div><b>اختر</b><span>تصفح المنتجات واختر ما يناسبك</span></div><div class="step"><div class="stepNum">2</div><b>اطلب</b><span>أضف للسلة وأرسل طلبك بسهولة</span></div><div class="step"><div class="stepNum">3</div><b>استلم</b><span>تابع طلبك حتى وصوله إليك</span></div></div></div>
 </div></div></section>
 
-<section class="section"><div class="wrap">
-<div class="sectionHead"><div><h2>كيف تعمل Syria Commerce؟</h2><p>ثلاث خطوات وتبدأ</p></div></div>
-<div class="how">
-<div class="step"><div class="num">1</div><h3>اختر</h3><p>تصفح المنتجات والتصنيفات واختر ما يناسبك.</p></div>
-<div class="step"><div class="num">2</div><h3>اطلب</h3><p>أضف المنتج إلى السلة وأرسل طلبك بسهولة.</p></div>
-<div class="step"><div class="num">3</div><h3>تابع</h3><p>تابع طلباتك من حسابك واستمتع بتجربة واضحة.</p></div>
-</div></div></section>
-
-<section class="section"><div class="wrap">
-<div class="marketer"><div class="marketerGrid">
-<div><h2>حوّل التسويق إلى فرصة دخل</h2><p>كمسوّق، تستطيع اختيار المنتجات المناسبة وتسويقها لعملائك، ثم متابعة طلباتك وعمولاتك من حسابك.</p></div>
-<a class="btn light" href="/register">انضم كمسوّق</a>
-</div></div>
-</div></section>
-
-<section class="section"><div class="wrap">
-<div class="sectionHead"><div><h2>تجربة مصممة لك</h2><p>وضوح في كل خطوة</p></div></div>
-<div class="trust">
-<div class="trustCard"><b>🛒 تسوق واضح</b><span>واجهة بسيطة تساعدك على اكتشاف المنتج وإكمال الطلب بسرعة.</span></div>
-<div class="trustCard"><b>⚡ تجربة سريعة</b><span>الوصول للمنتجات والحساب والسلة بدون خطوات غير ضرورية.</span></div>
-<div class="trustCard"><b>🤝 للمسوّق والعميل</b><span>كل مستخدم لديه تجربة مناسبة لدوره داخل المنصة.</span></div>
-</div></div></section>
+<section class="benefits"><div class="wrap benefitGrid"><div class="benefit"><div style="font-size:24px">🛡️</div><b>تسوق بثقة</b><span>تجربة واضحة وآمنة</span></div><div class="benefit"><div style="font-size:24px">🚚</div><b>توصيل سريع</b><span>إلى مختلف المحافظات</span></div><div class="benefit"><div style="font-size:24px">☎</div><b>دعم العملاء</b><span>نحن معك عند الحاجة</span></div><div class="benefit"><div style="font-size:24px">📦</div><b>منتجات متنوعة</b><span>خيارات تناسب احتياجاتك</span></div></div></section>
 </main>
 
-<footer class="footer"><div class="wrap footerGrid"><div>© Syria Commerce — جميع الحقوق محفوظة</div><div class="footerLinks"><a href="/products">المنتجات</a><a href="/login">دخول</a><a href="/register">التسجيل</a></div></div></footer>
+<footer class="footer"><div class="wrap foot"><div>© 2026 Syria Commerce — جميع الحقوق محفوظة</div><div class="footLinks"><a href="/products">المنتجات</a><a href="/login">تسجيل الدخول</a><a href="/register">التسجيل</a><a href="/marketer">المسوّق</a></div></div></footer>
 </body></html>`,"Syria Commerce | الرئيسية");
     }
+    
     
     
     
